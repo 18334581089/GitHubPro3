@@ -1,6 +1,8 @@
 import React, { Component } from 'react'
-import { View, Text } from '@tarojs/components'
+import { View, Text, Image } from '@tarojs/components'
 import './index.scss'
+
+import ima1 from './../../assets/stormtroopocat.png'
 
 export default class Index extends Component {
 
@@ -17,7 +19,7 @@ export default class Index extends Component {
   render () {
     return (
       <View className='index'>
-        <Text>Hello world!</Text>
+        <Image src={ima1}></Image>
       </View>
     )
   }
