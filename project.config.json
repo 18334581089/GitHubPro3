@@ -2,7 +2,8 @@
   "miniprogramRoot": "./dist",
   "projectname": "github_pro",
   "description": "skilled hooks.",
-  "appid": "touristappid",
+  "appid": "wx01cfbc1af6c3dd51",
+  "useApiHostProcess": true,
   "setting": {
     "urlCheck": true,
     "es6": false,
