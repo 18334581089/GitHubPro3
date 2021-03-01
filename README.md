@@ -15,3 +15,7 @@ skilled hooks
 - useEffect 而第二个参数称之为dependencies，是一个数组，如果数组中的值变化才会触发 执行useEffect 第一个参数中的函数
 - 看了2,3小时看懂了首页的trending页面
 - 20:28 , 根据自己的逻辑写完首页trending页面的基本渲染(使用 hooks, 需要改进的地方还有很多)
+
+#### 2021/3/1
+- 使用taro-ui(遇到报错,因为版本问题,现在用的是3.0.0)
+- 简单实现ui组件+页面逻辑,trending页面

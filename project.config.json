@@ -5,7 +5,7 @@
   "appid": "wx01cfbc1af6c3dd51",
   "useApiHostProcess": true,
   "setting": {
-    "urlCheck": true,
+    "urlCheck": false,
     "es6": false,
     "postcss": false,
     "minified": false
