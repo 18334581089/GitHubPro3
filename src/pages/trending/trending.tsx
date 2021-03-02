@@ -82,7 +82,7 @@ export default () => {
 
   return (
     <AtTabs tabList={tabList} onClick={handleStatusChange} current={currTab}>
-      {tabList.map((tab, index) => {
+      {tabList.map((_tab, index) => {
         const _repos = repos[currTab] || []
         return (
           <AtTabsPane key={index} current={currTab} index={index}>
