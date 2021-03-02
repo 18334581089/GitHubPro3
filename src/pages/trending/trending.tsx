@@ -1,5 +1,6 @@
-import React, { useState, useEffect } from "react"
-import { View, Text, Image, Block } from "@tarojs/components"
+import React, { useState, useEffect, useRef } from "react"
+import { connectSocket, usePullDownRefresh } from "@tarojs/taro"
+import { View, Text, Image, Block, Button } from '@tarojs/components';
 import { AtTabs, AtTabsPane } from "taro-ui"
 
 import { request } from "./request"
@@ -56,48 +57,69 @@ export default () => {
   const [currTab, setCurrTab] = useState<number>(0)
   const [params, setParams] = useState<ITrendingRequestParams>(defaultParams)
   const [repos, setRepos] = useState<ITabIndex>({})
+  const [refresh, setRefresh] = useState<number>(0)
+  const countRef = 0
 
   useEffect(() => {
+    if (repos[currTab]) { return }
+    setParams({ ...params, since: tabList[currTab].value })
   }, [currTab])
-
-  function handleStatusChange(index: number): void {
-    const menuStatus = tabList[index]
-    setCurrTab(index)
-    setParams({ ...params, since: menuStatus.value })
-  }
 
   useEffect(() => {
     getRepos(params)
   }, [params])
 
-  function getRepos(param: any) {
-    request(param).then(res => {
+  useEffect(() => {
+    getRepos(params, {})
+  }, [refresh])
+
+  // usePullDownRefresh(() => {
+  //   setRefresh(refresh + 1)
+  // })
+
+  function handle2 () {
+    setRefresh(refresh + 1)
+  }
+
+  function handleStatusChange(index: number): void {
+    setCurrTab(index)
+  }
+
+  function getRepos(param: any, repos1 = repos) {
+    // request(param).then(res => {
+      const res = {data: {}}
       if (res && res.data) {
         setRepos({
+          ...repos1,
           [currTab]: res.data
         })
       }
-    })
+    // })
   }
 
   return (
-    <AtTabs tabList={tabList} onClick={handleStatusChange} current={currTab}>
-      {tabList.map((_tab, index) => {
-        const _repos = repos[currTab] || []
-        return (
-          <AtTabsPane key={index} current={currTab} index={index}>
-            {_repos && _repos.map && _repos.map(tab2 => {
-              return (
-                <Block key={tab2.name}>
-                  <View><Text>author: </Text><Text>{tab2.author}</Text></View>
-                  <View><Text>repoName: </Text><Text>{tab2.name}</Text></View>
-                  <View><Image src={tab2.avatar}></Image></View>
-                </Block>
-              )
-            })}
-          </AtTabsPane>
-        )
-      })}
-    </AtTabs>
+    <Block>
+      <Block>
+        <Button onClick={handle2}>点击增加刷新值</Button>
+      </Block>
+      <AtTabs tabList={tabList} onClick={handleStatusChange} current={currTab}>
+        {tabList.map((_tab, index) => {
+          const _repos = repos[currTab] || []
+          return (
+            <AtTabsPane key={index} current={currTab} index={index}>
+              {_repos && _repos.map && _repos.map(tab2 => {
+                return (
+                  <Block key={tab2.name}>
+                    <View><Text>author: </Text><Text>{tab2.author}</Text></View>
+                    <View><Text>repoName: </Text><Text>{tab2.name}</Text></View>
+                    <View><Image src={tab2.avatar}></Image></View>
+                  </Block>
+                )
+              })}
+            </AtTabsPane>
+          )
+        })}
+      </AtTabs>
+    </Block>
   )
 }
