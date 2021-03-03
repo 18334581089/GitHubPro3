@@ -26,3 +26,7 @@ skilled hooks
 - 2 实现选择语言
 - 3 refresh 的简单实现(refresh+1时清除缓存,重新获取列表数据)
 - 配置账户名发布线上
+
+#### 2021/3/3
+- eslint校验,React Hook useEffect has a missing dependency(没有解决)
+- trending页面实现 language的简单实现(多用了几个taro的组件)
