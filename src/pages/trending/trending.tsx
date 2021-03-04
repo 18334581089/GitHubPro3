@@ -1,9 +1,10 @@
 import React, { useState, useEffect, useRef } from "react"
 import Taro, { usePullDownRefresh } from "@tarojs/taro"
 import { View, Text, Image, Block } from '@tarojs/components';
-import { AtTabs, AtTabsPane, AtButton, AtFloatLayout, AtRadio } from "taro-ui"
+import { AtTabs, AtTabsPane, AtButton, AtDrawer } from "taro-ui"
 
 import { request } from "./request"
+import MyLanguage from "./language"
 
 interface IBuiltBy {
   username: string
@@ -55,8 +56,8 @@ const defaultParams = {
   language: ''
 }
 const languageSelect = [
-  { label: 'js', value: 'option1' },
-  { label: 'css', value: 'option2' },
+  { label: 'js', value: 'option1'},
+  { label: 'css', value: 'option2'},
   { label: 'html', value: 'option3'},
   { label: 'ts', value: 'option4'},
   { label: 'react', value: 'option5'}
@@ -67,7 +68,7 @@ export default () => {
   const [params, setParams] = useState<ITrendingRequestParams>(defaultParams)
   const [repos, setRepos] = useState<ITabIndex>({})
   const [refresh, setRefresh] = useState<number>(0)
-  const [showLangDrawer, setShowLangDrawer] = useState<Boolean>(false)
+  const [showLangDrawer, setShowaLngDrawer] = useState<Boolean>(false)
   const [curLang, setLang] = useState<string>('')
 
   useEffect(() => {
@@ -113,24 +114,24 @@ export default () => {
     })
   }
 
-  function handleLangChange() {
-    setShowLangDrawer(true)
+  function handleLangChange(isShow : boolean):() => void {
+    return () => {
+      setShowaLngDrawer(isShow)
+    }
   }
 
-  function handleChange(arg) {
-    setLang(arg)
+  function handleChange(lang:string):void {
+    setLang(lang)
     setParams({
       ...params,
-      language: arg
+      language: lang
     })
-  }
-
-  function closeLangDrawer() {
-    setShowLangDrawer(false)
+    setShowaLngDrawer(false)
   }
 
   return (
     <Block>
+      <AtButton type='primary' size='small' onClick={handleLangChange(true)}>切换语言</AtButton>
       
       <AtTabs tabList={tabList} onClick={handleTabChange} current={currTab}>
         {tabList.map((_tab, index) => {
@@ -157,15 +158,14 @@ export default () => {
         })}
       </AtTabs>
 
-      <AtButton type='primary' size='small' onClick={handleLangChange}>按钮文案</AtButton>
-
-      <AtFloatLayout isOpened={!!showLangDrawer} title='select language' onClose={closeLangDrawer}>
-        <AtRadio
-          options={languageSelect}
-          value={curLang}
-          onClick={handleChange}
-        ></AtRadio>
-      </AtFloatLayout>
+      <AtDrawer 
+        show={!!showLangDrawer} 
+        onClose={handleLangChange(false)}
+        right 
+        mask 
+      >
+        <MyLanguage handleChange={handleChange}></MyLanguage>
+      </AtDrawer>
     </Block>
   )
 }

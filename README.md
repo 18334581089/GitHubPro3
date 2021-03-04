@@ -30,3 +30,9 @@ skilled hooks
 #### 2021/3/3
 - eslint校验,React Hook useEffect has a missing dependency(没有解决)
 - trending页面实现 language的简单实现(多用了几个taro的组件)
+
+#### 2021/3/4
+- 完成选择语言功能
+- (找不到他的静态数据如何生成的: 可选择语言) 原因是:不知道useSelect 应该是taro封装的hook
+- 简单使用静态数据写了完善了部分功能
+- 还有的问题: redux,sass,request
