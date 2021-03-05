@@ -55,15 +55,8 @@ const defaultParams = {
   type: 'repo',
   language: ''
 }
-const languageSelect = [
-  { label: 'js', value: 'option1'},
-  { label: 'css', value: 'option2'},
-  { label: 'html', value: 'option3'},
-  { label: 'ts', value: 'option4'},
-  { label: 'react', value: 'option5'}
-]
 
-export default () => {
+const Trending =  () => {
   const [currTab, setCurrTab] = useState<number>(0)
   const [params, setParams] = useState<ITrendingRequestParams>(defaultParams)
   const [repos, setRepos] = useState<ITabIndex>({})
@@ -120,11 +113,11 @@ export default () => {
     }
   }
 
-  function handleChange(lang:string):void {
-    setLang(lang)
+  function handleChange({title}):void {
+    setLang(title)
     setParams({
       ...params,
-      language: lang
+      language: title
     })
     setShowaLngDrawer(false)
   }
@@ -164,8 +157,13 @@ export default () => {
         right 
         mask 
       >
-        <MyLanguage handleChange={handleChange}></MyLanguage>
+        <MyLanguage
+          handleChangeLang={handleChange}
+          curLang={curLang}
+        ></MyLanguage>
       </AtDrawer>
     </Block>
   )
 }
+
+export default Trending

@@ -1326,6 +1326,13 @@
     "@types/prop-types" "*"
     csstype "^3.0.2"
 
+"@types/redux-logger@^3.0.8":
+  version "3.0.8"
+  resolved "https://registry.npm.taobao.org/@types/redux-logger/download/@types/redux-logger-3.0.8.tgz#1fb6d26917bb198792bb1cf57feb31cae1532c5d"
+  integrity sha1-H7bSaRe7GYeSuxz1f+sxyuFTLF0=
+  dependencies:
+    redux "^4.0.0"
+
 "@types/sass@^1.16.0":
   version "1.16.0"
   resolved "https://registry.npm.taobao.org/@types/sass/download/@types/sass-1.16.0.tgz?cache=0&sync_timestamp=1613384595135&other_urls=https%3A%2F%2Fregistry.npm.taobao.org%2F%40types%2Fsass%2Fdownload%2F%40types%2Fsass-1.16.0.tgz#b41ac1c17fa68ffb57d43e2360486ef526b3d57d"
@@ -7992,7 +7999,12 @@ redux-logger@^3.0.6:
   dependencies:
     deep-diff "^0.3.5"
 
-redux@^4.0.5:
+redux-thunk@^2.3.0:
+  version "2.3.0"
+  resolved "https://registry.npm.taobao.org/redux-thunk/download/redux-thunk-2.3.0.tgz#51c2c19a185ed5187aaa9a2d08b666d0d6467622"
+  integrity sha1-UcLBmhhe1Rh6qpotCLZm0NZGdiI=
+
+redux@^4.0.0, redux@^4.0.5:
   version "4.0.5"
   resolved "https://registry.npm.taobao.org/redux/download/redux-4.0.5.tgz#4db5de5816e17891de8a80c424232d06f051d93f"
   integrity sha1-TbXeWBbheJHeioDEJCMtBvBR2T8=

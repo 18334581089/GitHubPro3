@@ -36,3 +36,10 @@ skilled hooks
 - (找不到他的静态数据如何生成的: 可选择语言) 原因是:不知道useSelect 应该是taro封装的hook
 - 简单使用静态数据写了完善了部分功能
 - 还有的问题: redux,sass,request
+
+#### 2021/3/5
+- 总目标 : 完成myLanguage组件
+- 需要构建store (看middleware 中间件)(看 redux-thunk 中间件)(看了 redux-actions)
+- 看明白useSelect
+- redux 引入报错(node_modules里面没有文件,不知道为啥都是空的文件夹) 删除文件夹,重新add一下(耽误了半小时吧)
+- 最后没有写完这个组件(卡在了redux使用报错,无法解决: 编译不报错,生成的小程序报错 类名不能调用)
