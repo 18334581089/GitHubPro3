@@ -1,7 +1,7 @@
 import { combineReducers } from "redux"
 import Taro from "@tarojs/taro"
 
-const UPDATE_LANGS = 'language/update_selected_langs'
+import { UPDATE_LANGS } from "./constatnts"
 
 const defaultData = [
   {
@@ -36,7 +36,6 @@ const languageReducer = (state = initData, action: IAction) => {
     case UPDATE_LANGS :
       Taro.setStorageSync('selected', action.payload)
       return {
-        ...state,
         selected: action.payload
       }
     default :

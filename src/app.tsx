@@ -1,5 +1,5 @@
 import React, { Component } from 'react'
-import { Provider } from '@tarojs/redux'
+import { Provider } from 'react-redux'
 import 'taro-ui/dist/style/index.scss'
 
 import configStore from "./redux/index"

@@ -43,3 +43,19 @@ skilled hooks
 - 看明白useSelect
 - redux 引入报错(node_modules里面没有文件,不知道为啥都是空的文件夹) 删除文件夹,重新add一下(耽误了半小时吧)
 - 最后没有写完这个组件(卡在了redux使用报错,无法解决: 编译不报错,生成的小程序报错 类名不能调用)
+
+#### 2021/3/6
+- 想把trending页面写完整
+> 包括
+> > 1 request封装 
+> > 2 redux缓存机制 
+> > 3 组件通信 
+> > 4 最后再scass
+- github API接口报错,
+> ERR_PROXY_CONNECTION_FAILED, 因为本机代理问题(网络被代理)
+- redux报错,store of null
+> tarojs/redux => react-redux
+> 疑问? hook 不需要使用 connect 
+- language 组件
+- request 封装
+> 封装了一点

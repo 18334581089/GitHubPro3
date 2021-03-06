@@ -1,5 +1,5 @@
 import { Block, View } from "@tarojs/components"
-import { useSelector } from "@tarojs/redux"
+import { useSelector } from "react-redux"
 import { AtIcon } from "taro-ui"
 import Taro from "@tarojs/taro"
 import React from "react"
@@ -30,11 +30,11 @@ const MyLanguage = ({ handleChangeLang, curLang }: IComProps) => {
         langs.map(item => {
           return (
             <Block key={item.title}>
-              <View onClick={handleClick} data-title={item.title}>
+              <View onClick={handleClick} data-title={item.language}>
                 {
                   item.title === curLang
-                    ? item.title
-                    : ("→" + item.title)
+                    ? ("→" + item.title)
+                    : item.title
                 }
               </View>
             </Block>

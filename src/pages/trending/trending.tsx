@@ -3,53 +3,10 @@ import Taro, { usePullDownRefresh } from "@tarojs/taro"
 import { View, Text, Image, Block } from '@tarojs/components';
 import { AtTabs, AtTabsPane, AtButton, AtDrawer } from "taro-ui"
 
-import { request } from "./request"
-import MyLanguage from "./language"
+import { trendList, ITabIndex, ITrendingRequestParams } from "./../../servies/module/trend"
+import { tabList } from "./../../util/configData"
+import MyLanguage from "./lang"
 
-interface IBuiltBy {
-  username: string
-  href: string
-  avatar: string
-}
-interface ITrendingRepo {
-  author: string
-  name: string
-  avatar: string
-  url: string
-  description: string
-  language?: string
-  languageColor?: string
-  stars: number
-  forks: number
-  currentPeriodStars: number
-  builtBy: Array<IBuiltBy>
-}
-interface ITabIndex {
-  [propName: string]: Array<ITrendingRepo> | null
-}
-interface ITrendingRequestParams {
-  type: string,
-  language: string
-  since: string
-}
-interface ITrendParams {
-  [propName: string]: any
-}
-
-const tabList = [
-  {
-    title: 'daily',
-    value: 'daily'
-  },
-  {
-    title: 'weekly',
-    value: 'weekly'
-  },
-  {
-    title: 'monthly',
-    value: 'monthly'
-  }
-]
 const defaultParams = {
   since: 'daily',
   type: 'repo',
@@ -69,18 +26,21 @@ const Trending =  () => {
   }, [curLang])
 
   usePullDownRefresh(() => {
-    setRepos({ [currTab]: null})
+    setRepos({ [currTab]: null })
     setRefresh(refresh + 1)
   })
 
-  const getRepos = (param: ITrendParams) => {
+  const getRepos = (param: ITrendingRequestParams) => {
     Taro.showLoading({ title: 'loading...' })
-    request(param).then(res => {
+    trendList(param).then(res => {
       if (res && res.data) {
         if (repos[currTab]) {
           setRepos({ [currTab]: res.data })
         } else {
-          setRepos({  ...repos, [currTab]: res.data })
+          setRepos({
+            ...repos,
+            [currTab]: res.data
+          })
         }
         Taro.hideLoading()
       } else {
@@ -93,7 +53,7 @@ const Trending =  () => {
     })
   }
 
-  useEffect(() =>{
+  useEffect(() => {
     getRepos(params)
   }, [params, refresh])
 
@@ -107,10 +67,8 @@ const Trending =  () => {
     })
   }
 
-  function handleLangChange(isShow : boolean):() => void {
-    return () => {
-      setShowaLngDrawer(isShow)
-    }
+  function handleLangChange(isShow : boolean) {
+    return () => setShowaLngDrawer(isShow)
   }
 
   function handleChange({title}):void {
