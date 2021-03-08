@@ -1,3 +1,5 @@
+import path from 'path'
+
 const config = {
   projectName: 'github_pro',
   date: '2021-2-21',
@@ -11,6 +13,13 @@ const config = {
   outputRoot: 'dist',
   plugins: [],
   defineConstants: {
+  },
+  alias: {
+    '@/component': path.resolve(__dirname, '..', 'src/component'),
+    '@/services': path.resolve(__dirname, '..', 'src/services'),
+    '@/assets': path.resolve(__dirname, '..', 'src/assets'),
+    '@/redux': path.resolve(__dirname, '..', 'src/redux'),
+    '@/util': path.resolve(__dirname, '..', 'src/util')
   },
   copy: {
     patterns: [
@@ -63,7 +72,7 @@ const config = {
   }
 }
 
-module.exports = function (merge) {
+export default function (merge) {
   if (process.env.NODE_ENV === 'development') {
     return merge({}, config, require('./dev'))
   }

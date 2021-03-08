@@ -1,10 +1,11 @@
 import React, { useState, useEffect, useRef } from "react"
 import Taro, { usePullDownRefresh } from "@tarojs/taro"
-import { View, Text, Image, Block } from '@tarojs/components';
+import { View, Text, Image, Block } from '@tarojs/components'
 import { AtTabs, AtTabsPane, AtButton, AtDrawer } from "taro-ui"
 
-import { trendList, ITabIndex, ITrendingRequestParams } from "./../../servies/module/trend"
-import { tabList } from "./../../util/configData"
+import { trendList, ITabIndex, ITrendingRequestParams } from "@/services/module/trend"
+import { tabList } from "@/util/configData"
+import Empty from "@/component/empty/empty"
 import MyLanguage from "./lang"
 
 const defaultParams = {
@@ -91,7 +92,7 @@ const Trending =  () => {
             <Block key={index}>
               <AtTabsPane current={currTab} index={index}>
                 {
-                  _repos
+                  (_repos.length && _repos.length > 0)
                   ? _repos.map(tab2 => {
                     return (
                       <Block key={tab2.name}>
@@ -101,7 +102,7 @@ const Trending =  () => {
                       </Block>
                     )
                   })
-                  : <Block></Block>
+                  : <Empty></Empty>
                 }
               </AtTabsPane>
             </Block>

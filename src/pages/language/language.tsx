@@ -4,9 +4,9 @@ import { useSelector, useDispatch } from "react-redux"
 import { AtCheckbox } from "taro-ui"
 import Taro from "@tarojs/taro"
 
-import { UPDATE_LANGS } from "./../../redux/constatnts"
+import { UPDATE_LANGS } from "@/redux/constatnts"
 import LANGUAGE_LIST from "./langs"
-import { getLanguageData, getLanguageOptions } from "./../../util/pureFn"
+import { getLanguageData, getLanguageOptions } from "@/util/pureFn"
 
 export default () => {
   const langs = useSelector<any,any>(state => state.lang.selected)
