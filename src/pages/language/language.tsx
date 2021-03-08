@@ -6,7 +6,7 @@ import Taro from "@tarojs/taro"
 
 import { UPDATE_LANGS } from "./../../redux/constatnts"
 import LANGUAGE_LIST from "./langs"
-import { getLanguageData, getLanguageOptions } from "./util"
+import { getLanguageData, getLanguageOptions } from "./../../util/pureFn"
 
 export default () => {
   const langs = useSelector<any,any>(state => state.lang.selected)
