@@ -1,125 +1,128 @@
 import React, { useState, useEffect, useRef } from "react"
-import { connectSocket, usePullDownRefresh } from "@tarojs/taro"
-import { View, Text, Image, Block, Button } from '@tarojs/components';
-import { AtTabs, AtTabsPane } from "taro-ui"
+import Taro, { usePullDownRefresh } from "@tarojs/taro"
+import { View, Text, Image, Block } from '@tarojs/components'
+import { AtTabs, AtTabsPane, AtButton, AtDrawer } from "taro-ui"
 
-import { request } from "./request"
+import { trendList, ITabIndex, ITrendingRequestParams } from "@/services/module/trend"
+import { tabList } from "@/util/configData"
+import Empty from "@/component/empty/empty"
+import MyLanguage from "./lang"
 
-interface IBuiltBy {
-  username: string
-  href: string
-  avatar: string
-}
-interface ITrendingRepo {
-  author: string
-  name: string
-  avatar: string
-  url: string
-  description: string
-  language?: string
-  languageColor?: string
-  stars: number
-  forks: number
-  currentPeriodStars: number
-  builtBy: Array<IBuiltBy>
-}
-interface ITabIndex {
-  [propName: string]: Array<ITrendingRepo> | null
-}
-interface ITrendingRequestParams {
-  type: string,
-  language: string
-  since: string
-}
-
-
-const tabList = [
-  {
-    title: 'daily',
-    value: 'daily'
-  },
-  {
-    title: 'weekly',
-    value: 'weekly'
-  },
-  {
-    title: 'monthly',
-    value: 'monthly'
-  }
-]
 const defaultParams = {
   since: 'daily',
   type: 'repo',
   language: ''
 }
 
-export default () => {
+const Trending =  () => {
   const [currTab, setCurrTab] = useState<number>(0)
   const [params, setParams] = useState<ITrendingRequestParams>(defaultParams)
   const [repos, setRepos] = useState<ITabIndex>({})
   const [refresh, setRefresh] = useState<number>(0)
-  const countRef = 0
+  const [showLangDrawer, setShowaLngDrawer] = useState<Boolean>(false)
+  const [curLang, setLang] = useState<string>('')
 
   useEffect(() => {
-    if (repos[currTab]) { return }
-    setParams({ ...params, since: tabList[currTab].value })
-  }, [currTab])
+    Taro.setNavigationBarTitle({ title: curLang })
+  }, [curLang])
+
+  usePullDownRefresh(() => {
+    setRepos({ [currTab]: null })
+    setRefresh(refresh + 1)
+  })
+
+  const getRepos = (param: ITrendingRequestParams) => {
+    Taro.showLoading({ title: 'loading...' })
+    trendList(param).then(res => {
+      if (res && res.data) {
+        if (repos[currTab]) {
+          setRepos({ [currTab]: res.data })
+        } else {
+          setRepos({
+            ...repos,
+            [currTab]: res.data
+          })
+        }
+        Taro.hideLoading()
+      } else {
+        Taro.showToast({
+          title: '数据出错',
+          mask: true,
+          icon: 'none'
+        })
+      }
+    })
+  }
 
   useEffect(() => {
     getRepos(params)
-  }, [params])
+  }, [params, refresh])
 
-  useEffect(() => {
-    getRepos(params, {})
-  }, [refresh])
-
-  // usePullDownRefresh(() => {
-  //   setRefresh(refresh + 1)
-  // })
-
-  function handle2 () {
-    setRefresh(refresh + 1)
-  }
-
-  function handleStatusChange(index: number): void {
+  function handleTabChange(index: number): void {
     setCurrTab(index)
+    Taro.pageScrollTo({ scrollTop: 0 })
+    if (repos[index]) { return }
+    setParams({
+      ...params,
+      since: tabList[index].value
+    })
   }
 
-  function getRepos(param: any, repos1 = repos) {
-    // request(param).then(res => {
-      const res = {data: {}}
-      if (res && res.data) {
-        setRepos({
-          ...repos1,
-          [currTab]: res.data
-        })
-      }
-    // })
+  function handleLangChange(isShow : boolean) {
+    return () => setShowaLngDrawer(isShow)
+  }
+
+  function handleChange({title}):void {
+    setLang(title)
+    setParams({
+      ...params,
+      language: title
+    })
+    setShowaLngDrawer(false)
   }
 
   return (
     <Block>
-      <Block>
-        <Button onClick={handle2}>点击增加刷新值</Button>
-      </Block>
-      <AtTabs tabList={tabList} onClick={handleStatusChange} current={currTab}>
+      <AtButton type='primary' size='small' onClick={handleLangChange(true)}>切换语言</AtButton>
+      
+      <AtTabs tabList={tabList} onClick={handleTabChange} current={currTab}>
         {tabList.map((_tab, index) => {
           const _repos = repos[currTab] || []
           return (
-            <AtTabsPane key={index} current={currTab} index={index}>
-              {_repos && _repos.map && _repos.map(tab2 => {
-                return (
-                  <Block key={tab2.name}>
-                    <View><Text>author: </Text><Text>{tab2.author}</Text></View>
-                    <View><Text>repoName: </Text><Text>{tab2.name}</Text></View>
-                    <View><Image src={tab2.avatar}></Image></View>
-                  </Block>
-                )
-              })}
-            </AtTabsPane>
+            <Block key={index}>
+              <AtTabsPane current={currTab} index={index}>
+                {
+                  (_repos.length && _repos.length > 0)
+                  ? _repos.map(tab2 => {
+                    return (
+                      <Block key={tab2.name}>
+                        <View><Text>author: </Text><Text>{tab2.author}</Text></View>
+                        <View><Text>repoName: </Text><Text>{tab2.name}</Text></View>
+                        <View><Image src={tab2.avatar}></Image></View>
+                      </Block>
+                    )
+                  })
+                  : <Empty></Empty>
+                }
+              </AtTabsPane>
+            </Block>
           )
         })}
       </AtTabs>
+
+      <AtDrawer 
+        show={!!showLangDrawer} 
+        onClose={handleLangChange(false)}
+        right 
+        mask 
+      >
+        <MyLanguage
+          handleChangeLang={handleChange}
+          curLang={curLang}
+        ></MyLanguage>
+      </AtDrawer>
     </Block>
   )
 }
+
+export default Trending

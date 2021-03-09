@@ -22,7 +22,14 @@
     "typeRoots": [
       "node_modules/@types",
       "global.d.ts"
-    ]
+    ],
+    "paths": {
+      "@/component/*": ["src/component/*"],
+      "@/services/*": ["src/services/*"],
+      "@/assets/*": ["src/assets/*"],
+      "@/redux/*": ["src/redux/*"],
+      "@/util/*": ["src/util/*"]
+    }
   },
   "exclude": [
     "node_modules",

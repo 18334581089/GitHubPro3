@@ -1,1 +1,0 @@
-  export const baseUrl = "https://trending-github.naotu.online/"
