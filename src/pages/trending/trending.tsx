@@ -4,8 +4,10 @@ import { View, Text, Image, Block } from '@tarojs/components'
 import { AtTabs, AtTabsPane, AtButton, AtDrawer } from "taro-ui"
 
 import { apiTrendList, ITabIndex, ITrendingRequestParams } from "@/services/module/trend"
-import { tabList } from "@/util/configData"
+import { tabList, PULL_DOWN_REFRESH_EVENT } from "@/util/configData"
+import { events } from "@/util/index"
 import Empty from "@/component/empty/empty"
+
 import MyLanguage from "./lang"
 
 const defaultParams = {
@@ -21,6 +23,7 @@ const Trending =  () => {
   const [refresh, setRefresh] = useState<number>(0)
   const [showLangDrawer, setShowaLngDrawer] = useState<Boolean>(false)
   const [curLang, setLang] = useState<string>('')
+  const pagePullDownRef = useRef('')
 
   useEffect(() => {
     Taro.setNavigationBarTitle({ title: curLang })
@@ -52,6 +55,20 @@ const Trending =  () => {
       })
     }
   }
+
+  useEffect(() => {
+    events.on(PULL_DOWN_REFRESH_EVENT, (page: string) => {
+      if (!pagePullDownRef.current) {
+        pagePullDownRef.current = page
+      } else if (pagePullDownRef.current !== page) {
+        return
+      }
+      getRepos(params)
+    })
+    return () => {
+      events.off(PULL_DOWN_REFRESH_EVENT)
+    }
+  }, [])
 
   useEffect(() => {
     getRepos(params)

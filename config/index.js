@@ -19,6 +19,7 @@ const config = {
     '@/services': path.resolve(__dirname, '..', 'src/services'),
     '@/assets': path.resolve(__dirname, '..', 'src/assets'),
     '@/redux': path.resolve(__dirname, '..', 'src/redux'),
+    '@/hook': path.resolve(__dirname, '..', 'src/hook'),
     '@/util': path.resolve(__dirname, '..', 'src/util')
   },
   copy: {

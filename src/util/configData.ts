@@ -12,3 +12,5 @@ export const tabList = [
     value: 'monthly'
   }
 ]
+
+export const PULL_DOWN_REFRESH_EVENT = 'pull_down_refresh_event'

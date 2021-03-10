@@ -28,6 +28,7 @@
       "@/services/*": ["src/services/*"],
       "@/assets/*": ["src/assets/*"],
       "@/redux/*": ["src/redux/*"],
+      "@/hook/*": ["src/hook/*"],
       "@/util/*": ["src/util/*"]
     }
   },
