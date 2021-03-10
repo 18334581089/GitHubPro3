@@ -65,3 +65,14 @@ skilled hooks
 - 写个空组件(晚上)
 > form '@/...  @ 的引入
 > 单词写错耽误20分钟
+
+#### 2021/3/(8|9)
+- 配置alias
+- 配置自定义hook(假数据)
+
+#### 2021/3/10
+- 目标,项目 使用 promise
+> 默认带有async  和  await, 不需要在引入promise包
+> 把接口request规范一下
+- 模仿编写简单hook
+

@@ -22,9 +22,20 @@ const request = (
   }
 
   return Taro.request(option)
-    .then(res => res)
+    .then(res => {
+      if (res.statusCode === 200) {
+        return res.data
+      } else {
+        Taro.showToast({
+          title: res.errMsg || '出错了!'
+        })
+        return null
+      }
+    })
     .catch(err => {
-      console.log(err)
+      Taro.showToast({
+        title: err.errMsg || '请求出错!'
+      })
       return null
     })
     .finally(() => {

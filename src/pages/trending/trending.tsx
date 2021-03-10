@@ -3,7 +3,7 @@ import Taro, { usePullDownRefresh } from "@tarojs/taro"
 import { View, Text, Image, Block } from '@tarojs/components'
 import { AtTabs, AtTabsPane, AtButton, AtDrawer } from "taro-ui"
 
-import { trendList, ITabIndex, ITrendingRequestParams } from "@/services/module/trend"
+import { apiTrendList, ITabIndex, ITrendingRequestParams } from "@/services/module/trend"
 import { tabList } from "@/util/configData"
 import Empty from "@/component/empty/empty"
 import MyLanguage from "./lang"
@@ -31,27 +31,26 @@ const Trending =  () => {
     setRefresh(refresh + 1)
   })
 
-  const getRepos = (param: ITrendingRequestParams) => {
+  const getRepos = async (param: ITrendingRequestParams) => {
     Taro.showLoading({ title: 'loading...' })
-    trendList(param).then(res => {
-      if (res && res.data) {
-        if (repos[currTab]) {
-          setRepos({ [currTab]: res.data })
-        } else {
-          setRepos({
-            ...repos,
-            [currTab]: res.data
-          })
-        }
-        Taro.hideLoading()
+    const res = await apiTrendList(param)
+    if (res) {
+      if (repos[currTab]) {
+        setRepos({ [currTab]: res })
       } else {
-        Taro.showToast({
-          title: '数据出错',
-          mask: true,
-          icon: 'none'
+        setRepos({
+          ...repos,
+          [currTab]: res
         })
       }
-    })
+      Taro.hideLoading()
+    } else {
+      Taro.showToast({
+        title: '数据出错',
+        mask: true,
+        icon: 'none'
+      })
+    }
   }
 
   useEffect(() => {

@@ -1,8 +1,8 @@
 import { get } from "../index"
 import { TRENDING_URL } from "../config"
 
-export const trendList = (params: ITrendingRequestParams) => {
-  return get(TRENDING_URL, params)
+export const apiTrendList = (params: ITrendingRequestParams | null) => {
+  return get(TRENDING_URL + '123', params)
 }
 
 interface IBuiltBy {
