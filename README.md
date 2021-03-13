@@ -76,3 +76,17 @@ skilled hooks
 > 把接口request规范一下
 - 模仿编写简单hook
 
+#### 2021/3/13
+- news
+> 发现大量使用hooks 但是不知道具体作用(先不管,除去需要登录的流程)
+> 发现 useReqesetWithMore 这是获取news数据的hook
+- 先写这个 hook
+> > 先看useRef的具体用法
+> > useRef会在每次渲染时返回同一个ref对象，即返回的ref对象在组件的整个生命周期内保持不变。自建对象每次渲染时都建立一个新的
+> > > useRef 和 createRef 的区别  一个是固定的值不会响应式的改变  一个是会每次更新dom都会回去新的值(createRef 如果有异步操作,里面的数据是异步操作之前的值,并且无法更改  但是 useRef 可以写在effect里面,获取最新的)
+> > > 不仅仅是用来存放dom, 还可以当作this,存放任何变量来使用 ,这点很好的解决了闭包的问题
+> > > 当 useRef 的内容发生变化时,不会引起重新渲染,不会通知用户,配合effect方法可以实现比较一个参数的变化前后的值(参考useRefLean.tsx)
+> > 开始写hook
+> > > 补充1 useState的setState可以传递函数fn作为参数,会把上一个state作为fn的参数调用,fn的返回值是最新的state
+- hook 没写
+- 简单实现获取news数据,接口

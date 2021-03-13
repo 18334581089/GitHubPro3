@@ -11,7 +11,7 @@ const getUniqueId = () => {
 }
 
 
-function usePullDownRefresh2() {
+function usePullDownRefreshEvent() {
   const pageRef = useRef(getUniqueId())
   usePullDownRefresh(() => {
     events.trigger(PULL_DOWN_REFRESH_EVENT, pageRef.current)
@@ -19,4 +19,4 @@ function usePullDownRefresh2() {
   return null
 }
 
-export default usePullDownRefresh2
+export default usePullDownRefreshEvent
