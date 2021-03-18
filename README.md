@@ -90,3 +90,8 @@ skilled hooks
 > > > 补充1 useState的setState可以传递函数fn作为参数,会把上一个state作为fn的参数调用,fn的返回值是最新的state
 - hook 没写
 - 简单实现获取news数据,接口
+
+#### 2021/3/18
+- 底部菜单图片无法显示(没解决)
+- news 页面无法正常显示(可能因为 build 和dev 同时运行的原因)
+- 挑一个简单的loadMore先写了

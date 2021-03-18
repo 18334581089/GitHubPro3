@@ -1,8 +1,9 @@
 import React, { useEffect, useState } from "react";
-import { Block, Button, View, Text } from "@tarojs/components";
+import { Block, Button, View, Text, Image } from "@tarojs/components";
 import usePullDownRefreshEvent from "@/hook/usePullDownRefresh"
 import Empty from "@/component/empty/empty";
 import { getEvents, IDefaultParams } from "@/services/module/news"
+import LoadMore from "@/component/loadMore/loadMore"
 
 interface INesItem {
   [propNam:string]: any
@@ -34,13 +35,20 @@ const News = () => {
     <Block>
       {
         data.length > 0
-        ? data.map((item, index) => {
-          return (
-            <Block key={index}>
-              <View>{item}</View>
-            </Block>
-          )
-        })
+        ? (<Block>
+          {data.map((item, index) => {
+            return (
+              <Block key={index}>
+                <View>
+                  <Image src={item.actor.avatar_url}></Image>
+                </View>
+              </Block>
+            )
+          })}
+          <View>
+            <LoadMore hasMore={!!true} />
+          </View>
+        </Block>)
         : (<Empty></Empty>)
       }
     </Block>
