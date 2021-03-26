@@ -14,3 +14,5 @@ export const tabList = [
 ]
 
 export const PULL_DOWN_REFRESH_EVENT = 'pull_down_refresh_event'
+
+export const REACH_BOTTOM_EVENT = 'REACH_BOTTOM_EVENT'

@@ -97,3 +97,12 @@ skilled hooks
 - 挑一个简单的loadMore先写了
 
 #### 2021/3/25
+- news写个下拉和上拉
+
+#### 2021/3/26
+- 理解他的useReachBottomEvent
+- 和上拉一样
+> 1 首先调用主方法,生成唯一id(A),监听每次下拉
+> 2 首次触发下拉,把A存储在组件的唯一ref(B)里面
+> 3 之后触发下拉,满足唯一A===B,就会触发effect
+- news组件进行优化,下一次就是search
