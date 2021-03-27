@@ -1,9 +1,9 @@
 export default {
   pages: [
+    'pages/search/search',
     'pages/news/news',
     'pages/trending/trending',
     'pages/language/language',
-    'pages/search/search',
     'pages/index/index',
   ],
   window: {

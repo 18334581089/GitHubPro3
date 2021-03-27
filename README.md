@@ -106,3 +106,7 @@ skilled hooks
 > 2 首次触发下拉,把A存储在组件的唯一ref(B)里面
 > 3 之后触发下拉,满足唯一A===B,就会触发effect
 - news组件进行优化,下一次就是search
+
+#### 2021/3/27
+- 决定了还是写search(news和explore的组件暂时不封装)
+> 先看懂逻辑
