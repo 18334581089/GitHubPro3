@@ -2,9 +2,14 @@ import { get } from "../index"
 import BASE_URL from "../config"
 
 const url = BASE_URL + '/search/repositories'
+const url2 = BASE_URL + '/search/user'
 
 export const getSearch = (params:ISearchPrams) => {
   return get(url, params)
+}
+
+export const getSearchUser = (params:ISearchPrams) => {
+  return get(url2, params)
 }
 
 export interface ISearchPrams {

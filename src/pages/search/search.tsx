@@ -1,7 +1,7 @@
 import React, { useEffect, useState } from "react";
 import { View, Image, Block } from "@tarojs/components";
-import { AtSearchBar } from "taro-ui";
-import { getSearch, ISearchPrams, IRepoItem } from "@/services/module/search";
+import { AtSearchBar, AtSegmentedControl } from "taro-ui";
+import { getSearch, getSearchUser, ISearchPrams, IRepoItem } from "@/services/module/search";
 import Empty from "@/component/empty/empty";
 
 const defaultParams: ISearchPrams = {
@@ -17,13 +17,15 @@ const Search = () => {
   const [params, setParams] = useState<ISearchPrams>(defaultParams)
   const [list, setList] = useState<IRepoItem[]>([])
 
+  const [current, setCurrent] = useState<number>(0)
+
   const changeHandle = (_val: string) => {
     setVal(_val)
   }
 
   const actionClickHandle = () => {
     if (!val) { return }
-    // 存储历史记录
+    // 这里加代码: 存储历史记录
     setParams({
       ...params,
       q: val,
@@ -33,17 +35,27 @@ const Search = () => {
 
   const getList = () => {
     if (!params.q) { return }
-    getSearch(params).then(res => {
-      if (res.items) {
-        console.log([...list, ...res.items])
-        setList([...list, ...res.items])
-      }
-    })
+    if (current) {
+      getSearch(params).then(res => {
+        if (res.items) {
+          setList([...list, ...res.items])
+        }
+      })
+    } else {
+      getSearchUser(params).then(res => {
+        if (res.items) {
+          setList([...list, ...res.items])
+        }
+      })
+    }
   }
-  
+
+  useEffect(getList, [params])
+
   useEffect(() => {
+    if (!val) { return }
     getList()
-  }, [params])
+  }, [current])
 
   return (
     <Block>
@@ -51,6 +63,11 @@ const Search = () => {
         onChange={changeHandle}
         onActionClick={actionClickHandle}
         value={val}
+      />
+      <AtSegmentedControl
+        values={['Repositories', 'Users']}
+        onClick={setCurrent}
+        current={current}
       />
       {
         list.length > 0
