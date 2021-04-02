@@ -1,8 +1,10 @@
 import React, { useEffect, useState } from "react";
 import { View, Image, Block } from "@tarojs/components";
-import { AtSearchBar, AtSegmentedControl } from "taro-ui";
-import { getSearch, getSearchUser, ISearchPrams, IRepoItem } from "@/services/module/search";
+import { AtSearchBar, AtSegmentedControl, AtTag } from "taro-ui";
+import { getSearch, getSearchUser, ISearchPrams, IRepoItem, ISearchUserItem } from "@/services/module/search";
 import Empty from "@/component/empty/empty";
+import { TagInfo } from "taro-ui/types/tag";
+import Taro from "@tarojs/taro"
 
 const defaultParams: ISearchPrams = {
   q: '',
@@ -13,11 +15,15 @@ const defaultParams: ISearchPrams = {
 }
 
 const Search = () => {
+  // const [searchValue, setSearchValue] = useState('')
+
   const [val, setVal] = useState<string>('')
   const [params, setParams] = useState<ISearchPrams>(defaultParams)
-  const [list, setList] = useState<IRepoItem[]>([])
+  const [list1, setList1] = useState<IRepoItem[]>([])
+  const [list2, setList2] = useState<ISearchUserItem[]>([])
 
   const [current, setCurrent] = useState<number>(0)
+  const [history, setHistory] = useState<string[]>([])
 
   const changeHandle = (_val: string) => {
     setVal(_val)
@@ -33,29 +39,63 @@ const Search = () => {
     })
   }
 
+  const historyHandle = (str: string) => {
+    if (history.includes(str)) { return }
+    const newHistory = [...history, str]
+    Taro.setStorageSync('search_history', newHistory)
+    setHistory(newHistory)
+  }
+
   const getList = () => {
-    if (!params.q) { return }
+    if (!params.q || !val) { return }
+    historyHandle(params.q)
     if (current) {
-      getSearch(params).then(res => {
+      getSearchUser(params).then(res => {
         if (res.items) {
-          setList([...list, ...res.items])
+          setList2([...list2, ...res.items])
         }
       })
     } else {
-      getSearchUser(params).then(res => {
+      getSearch(params).then(res => {
         if (res.items) {
-          setList([...list, ...res.items])
+          setList1([...list1, ...res.items])
         }
       })
     }
   }
 
-  useEffect(getList, [params])
-
+  useEffect(getList, [params, current])
   useEffect(() => {
-    if (!val) { return }
-    getList()
-  }, [current])
+    const _history = Taro.getStorageSync('search_history')
+    if (_history.length > 0) {
+      setHistory(_history)
+    }
+  }, [])
+
+  const clickHandle = (name: TagInfo) => {
+
+  }
+
+  const backList = (_current: number) => {
+    if (_current === 1 && list2.length > 0) {
+      return (
+        list2.map((_item, index) => (
+          <View key={index}>
+            <Image src={_item.avatar_url}></Image>
+          </View>
+        ))
+      )
+    } else if (_current === 0 && list1.length > 0) {
+      return (
+        list1.map((_item, index) => (
+          <View key={index}>
+            <Image src={_item.owner.avatar_url}></Image>
+          </View>
+        )))
+    } else {
+      return (<Empty />)
+    }
+  }
 
   return (
     <Block>
@@ -64,19 +104,22 @@ const Search = () => {
         onActionClick={actionClickHandle}
         value={val}
       />
+      <View>
+        {
+          history.map(_item => (
+            <AtTag name={_item} onClick={clickHandle} key={_item}>
+              {_item}
+            </AtTag>
+          ))
+        }
+      </View>
       <AtSegmentedControl
         values={['Repositories', 'Users']}
         onClick={setCurrent}
         current={current}
       />
       {
-        list.length > 0
-        ? list.map((_item, index) => (
-          <View key={index}>
-            <Image src={_item.owner.avatar_url}></Image>
-          </View>
-        ))
-        : (<Empty />)
+        backList(current)
       }
     </Block>
   )

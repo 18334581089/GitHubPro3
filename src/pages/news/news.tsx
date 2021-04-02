@@ -29,12 +29,6 @@ const News = () => {
 
   usePullDownRefreshEvent() // 顶部下拉hook
   useReachBottomEvent() // 滚动底部hook
-
-  // // 下拉 // 写上之后会重复执行
-  // usePullDownRefresh(() => {})
-
-  // // 上拉 // 写上之后会重复执行
-  // useReachBottom(() => {})
   
   const refresh = () => {
     setData([])

@@ -114,3 +114,10 @@ skilled hooks
 #### 2021/3/30
 - 看逻辑,
 - search加了切换仓库和用户,待测试
+
+#### 2021/4/2
+- search 问题1 需要判断是userList还是repoList
+> 写两个数组,通过current判断
+- 问题2 list值改变无法引起render
+> 原因是因为curent的值没有改对
+- 增加搜索记录标签
