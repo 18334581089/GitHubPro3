@@ -121,3 +121,29 @@ skilled hooks
 - 问题2 list值改变无法引起render
 > 原因是因为curent的值没有改对
 - 增加搜索记录标签
+
+####　2021/4/3
+- 想发布,得先把单个项目组件写了
+- memo 是个啥
+> react 顶层api(react.memo)
+> > 顶层api
+> > > 包括:(定义组件, 包装组件, 创建react元素,转换元素,refs,hook 等)
+> > > memo 是react 顶层api 的包装组件api
+> > 高阶函数
+> > > `React.memo(MyComponent, areEqual)`
+> > > 用来优化组件渲染: 通过判断props是否相同,相同情况下会复用最近一次渲染
+> > > myComponent 是需要包装的组件
+> > > areEqual 是一个对比函数,接受两个参数`(prevProps, nextProps)`
+> > > 返回true/false
+- 问题:　结局data传参的问题
+> 传参问题,因为函数组件的第一个参数是prop
+```
+(
+  { data }: {
+    data: ITrendingRepo
+  }
+)
+```
+- 引入结构和scss
+- 问题 scss 引入报错
+- 问题 全局scss 引入无效(在app.tsx)

@@ -104,7 +104,7 @@ const News = () => {
               return (
                 <Block key={index}>
                   <View>
-                    <Image src={item.actor.avatar_url}></Image>
+                    <Image style='width: 100px;height: 100px;' src={item.actor.avatar_url}></Image>
                   </View>
                 </Block>
               )

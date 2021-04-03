@@ -3,9 +3,10 @@ import Taro, { usePullDownRefresh } from "@tarojs/taro"
 import { View, Text, Image, Block } from '@tarojs/components'
 import { AtTabs, AtTabsPane, AtButton, AtDrawer } from "taro-ui"
 
-import { apiTrendList, ITabIndex, ITrendingRequestParams } from "@/services/module/trend"
+import { apiTrendList, ITabIndex, ITrendingRepo, ITrendingRequestParams } from "@/services/module/trend"
 import { tabList, PULL_DOWN_REFRESH_EVENT } from "@/util/configData"
 import { events } from "@/util/index"
+import RepoItem from "@/component/repoItem/repoItem"
 import Empty from "@/component/empty/empty"
 
 import MyLanguage from "./lang"
@@ -16,7 +17,7 @@ const defaultParams = {
   language: ''
 }
 
-const Trending =  () => {
+const Trending = () => {
   const [currTab, setCurrTab] = useState<number>(0)
   const [params, setParams] = useState<ITrendingRequestParams>(defaultParams)
   const [repos, setRepos] = useState<ITabIndex>({})
@@ -84,11 +85,11 @@ const Trending =  () => {
     })
   }
 
-  function handleLangChange(isShow : boolean) {
+  function handleLangChange(isShow: boolean) {
     return () => setShowaLngDrawer(isShow)
   }
 
-  function handleChange({title}):void {
+  function handleChange({ title }): void {
     setLang(title)
     setParams({
       ...params,
@@ -100,7 +101,7 @@ const Trending =  () => {
   return (
     <Block>
       <AtButton type='primary' size='small' onClick={handleLangChange(true)}>切换语言</AtButton>
-      
+
       <AtTabs tabList={tabList} onClick={handleTabChange} current={currTab}>
         {tabList.map((_tab, index) => {
           const _repos = repos[currTab] || []
@@ -108,17 +109,9 @@ const Trending =  () => {
             <Block key={index}>
               <AtTabsPane current={currTab} index={index}>
                 {
-                  (_repos.length && _repos.length > 0)
-                  ? _repos.map(tab2 => {
-                    return (
-                      <Block key={tab2.name}>
-                        <View><Text>author: </Text><Text>{tab2.author}</Text></View>
-                        <View><Text>repoName: </Text><Text>{tab2.name}</Text></View>
-                        <View><Image src={tab2.avatar}></Image></View>
-                      </Block>
-                    )
-                  })
-                  : <Empty></Empty>
+                  _repos.length > 0
+                    ? _repos.map(tab2 => <RepoItem key={tab2.url} index={index} data={tab2} />)
+                    : <Empty></Empty>
                 }
               </AtTabsPane>
             </Block>
@@ -126,11 +119,11 @@ const Trending =  () => {
         })}
       </AtTabs>
 
-      <AtDrawer 
-        show={!!showLangDrawer} 
+      <AtDrawer
+        show={!!showLangDrawer}
         onClose={handleLangChange(false)}
-        right 
-        mask 
+        right
+        mask
       >
         <MyLanguage
           handleChangeLang={handleChange}

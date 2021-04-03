@@ -10,7 +10,7 @@ interface IBuiltBy {
   href: string
   avatar: string
 }
-interface ITrendingRepo {
+export interface ITrendingRepo {
   author: string
   name: string
   avatar: string

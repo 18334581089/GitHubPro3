@@ -12,6 +12,9 @@ const config = {
   sourceRoot: 'src',
   outputRoot: 'dist',
   plugins: [],
+  sass: {
+    resource: path.resolve(__dirname, '..', 'src/app.scss')
+  },
   defineConstants: {
   },
   alias: {
