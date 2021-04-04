@@ -13,7 +13,7 @@ const config = {
   outputRoot: 'dist',
   plugins: [],
   sass: {
-    resource: path.resolve(__dirname, '..', 'src/app.scss')
+    resource: path.resolve(__dirname, '..', 'src/sass/index.scss')
   },
   defineConstants: {
   },

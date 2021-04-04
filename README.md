@@ -147,3 +147,17 @@ skilled hooks
 - 引入结构和scss
 - 问题 scss 引入报错
 - 问题 全局scss 引入无效(在app.tsx)
+> 解决,在webpack配置文件中加入
+````
+sass: {
+  resource: path.resolve(__dirname, '..', 'src/app.scss')
+}
+````
+
+#### 2021/4/4
+- 先学学样式
+- 我生成的样式,为什么common和repoItem里面都有样式
+> 如果我的webpack sass配置resource指向app.scss, 就会导致生成的文件样式发生重复
+- css技巧
+> flex布局中,子盒子使用`margin-left: auto`,可以实现margin-left最大化
+> > (以后就不用把左边盒子放在一个盒子,再用space-bewteen)
