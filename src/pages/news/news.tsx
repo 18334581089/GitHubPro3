@@ -8,6 +8,7 @@ import LoadMore from "@/component/loadMore/loadMore"
 import useReachBottomEvent from '@/hook/useReachBottomEvent'
 import { events } from "@/util/index";
 import { PULL_DOWN_REFRESH_EVENT, REACH_BOTTOM_EVENT } from "@/util/configData"
+import NewsItem from "@/component/newsItem/newsItem"
 
 interface INesItem {
   [propNam:string]: any
@@ -100,15 +101,7 @@ const News = () => {
         data.length > 0
         ? (
           <Block>
-            {data.map((item, index) => {
-              return (
-                <Block key={index}>
-                  <View>
-                    <Image style='width: 100px;height: 100px;' src={item.actor.avatar_url}></Image>
-                  </View>
-                </Block>
-              )
-            })}
+            {data.map((item, index) => <NewsItem key={index} item={item} />)}
             <View>
               <LoadMore hasMore={!!true} />
             </View>
