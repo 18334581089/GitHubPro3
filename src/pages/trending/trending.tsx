@@ -27,7 +27,7 @@ const Trending = () => {
   const pagePullDownRef = useRef('')
 
   useEffect(() => {
-    Taro.setNavigationBarTitle({ title: curLang })
+    Taro.setNavigationBarTitle({ title: curLang || 'ALL' })
   }, [curLang])
 
   usePullDownRefresh(() => {

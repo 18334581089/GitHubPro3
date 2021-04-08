@@ -1,6 +1,6 @@
 import Taro from '@tarojs/taro'
 import { View, Image, Text } from '@tarojs/components'
-import React, { memo } from 'react'
+import React, { memo, ReactNode } from 'react'
 
 import './newsItem.scss'
 
@@ -13,12 +13,13 @@ const getFormatDate = (rawDate = ""): string => {
   return `${m} ${d}, ${y}`
 }
 
-const getTimeAgo = (rawDate = ""): string => {
+const getTimeAgo = (rawDate: string): ReactNode | null => {
+  if (!rawDate) { return null }
   const date = new Date(rawDate)
-
   const now = new Date().getTime()
   const limit = (now - date.getTime()) / 1e3
   let content = ""
+
   if (limit < 60) {
     content = "just now"
   } else if (limit >= 60 && limit < 3600) {
@@ -32,7 +33,8 @@ const getTimeAgo = (rawDate = ""): string => {
   } else {
     content = getFormatDate(rawDate)
   }
-  return content
+  console.log(content)
+  return <Text className='create-at'>{content}</Text>
 }
 
 const ActivityItem = ({ item }: ActivityItemProps) => {
@@ -46,36 +48,17 @@ const ActivityItem = ({ item }: ActivityItemProps) => {
     created_at
   } = item
 
-  const handleLoginClick = () => {
-    const url = `/pages/developer/index?name=${login}`
-    Taro.navigateTo({ url })
-  }
-
-  const renderEvent = () => {
-    const { repo } = item
-    return (
-      <View>
-        <View className='event-desc'>{repo.name}</View>
-      </View>
-    )
-
-  }
-  const handleCardClick = () => {
-    Taro.navigateTo({ url: `/pages/repos/index?full_name=${name}` })
-  }
+  const handleLoginClick = () => console.log(`根据${login}跳转页面developer`)
+  const handleCardClick = () => console.log(`根据${name}跳转页面repos详情`)
+  
   return (
     <View className='item-wrap' onClick={handleCardClick}>
-      <Image
-        className='avatar'
-        src={avatar_url}
-      ></Image>
-      <Text className='login' onClick={handleLoginClick}>
-        {login}
-      </Text>
-      {!!created_at && (
-        <Text className='create-at'>{getTimeAgo(created_at)}</Text>
-      )}
-      <View className='event-wrap'>{renderEvent()}</View>
+      <Image className='avatar' src={avatar_url}></Image>
+      <Text className='login' onClick={handleLoginClick}>{login}</Text>
+      { getTimeAgo(created_at) }
+      <View className='event-wrap'>
+        <View className='event-desc'>{name}</View>
+      </View>
     </View>
   )
 }

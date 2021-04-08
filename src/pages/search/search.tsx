@@ -6,6 +6,8 @@ import Empty from "@/component/empty/empty";
 import { TagInfo } from "taro-ui/types/tag";
 import Taro from "@tarojs/taro"
 
+import RepoItem from ".//searchItem"
+
 const defaultParams: ISearchPrams = {
   q: '',
   sort: '',
@@ -87,11 +89,7 @@ const Search = () => {
       )
     } else if (_current === 0 && list1.length > 0) {
       return (
-        list1.map((_item, index) => (
-          <View key={index}>
-            <Image src={_item.owner.avatar_url}></Image>
-          </View>
-        )))
+        list1.map((_item, index) => <RepoItem repo={_item} key={index} />))
     } else {
       return (<Empty />)
     }
