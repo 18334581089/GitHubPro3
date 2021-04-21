@@ -1,12 +1,12 @@
 import React, { useEffect, useState } from "react";
-import { View, Image, Block } from "@tarojs/components";
+import { View, Block } from "@tarojs/components";
 import { AtSearchBar, AtSegmentedControl, AtTag } from "taro-ui";
 import { getSearch, getSearchUser, ISearchPrams, IRepoItem, ISearchUserItem } from "@/services/module/search";
 import Empty from "@/component/empty/empty";
-import { TagInfo } from "taro-ui/types/tag";
+import Author from "@/component/author/author";
 import Taro from "@tarojs/taro"
 
-import RepoItem from ".//searchItem"
+import RepoItem from "@/component/searchItem/searchItem"
 
 const defaultParams: ISearchPrams = {
   q: '',
@@ -17,8 +17,6 @@ const defaultParams: ISearchPrams = {
 }
 
 const Search = () => {
-  // const [searchValue, setSearchValue] = useState('')
-
   const [val, setVal] = useState<string>('')
   const [params, setParams] = useState<ISearchPrams>(defaultParams)
   const [list1, setList1] = useState<IRepoItem[]>([])
@@ -27,13 +25,9 @@ const Search = () => {
   const [current, setCurrent] = useState<number>(0)
   const [history, setHistory] = useState<string[]>([])
 
-  const changeHandle = (_val: string) => {
-    setVal(_val)
-  }
-
   const actionClickHandle = () => {
     if (!val) { return }
-    // 这里加代码: 存储历史记录
+    historyHandle(params.q)
     setParams({
       ...params,
       q: val,
@@ -50,7 +44,6 @@ const Search = () => {
 
   const getList = () => {
     if (!params.q || !val) { return }
-    historyHandle(params.q)
     if (current) {
       getSearchUser(params).then(res => {
         if (res.items) {
@@ -66,7 +59,11 @@ const Search = () => {
     }
   }
 
-  useEffect(getList, [params, current])
+  useEffect(
+    getList,
+    [params, current]
+  )
+
   useEffect(() => {
     const _history = Taro.getStorageSync('search_history')
     if (_history.length > 0) {
@@ -74,51 +71,44 @@ const Search = () => {
     }
   }, [])
 
-  const clickHandle = (name: TagInfo) => {
-
+  const clickHandle = ({ name }) => {
+    setVal(name)
+    setParams({
+      ...params,
+      q: name
+    })
   }
 
   const backList = (_current: number) => {
     if (_current === 1 && list2.length > 0) {
       return (
-        list2.map((_item, index) => (
-          <View key={index}>
-            <Image src={_item.avatar_url}></Image>
-          </View>
-        ))
+        list2.map((_item, index) => <Author key={index} item={_item} />)
       )
     } else if (_current === 0 && list1.length > 0) {
-      return (
-        list1.map((_item, index) => <RepoItem repo={_item} key={index} />))
+      return list1.map((_item, index) => <RepoItem repo={_item} key={index} />)
     } else {
-      return (<Empty />)
+      return <Empty />
     }
   }
 
   return (
     <Block>
       <AtSearchBar
-        onChange={changeHandle}
+        onChange={setVal}
         onActionClick={actionClickHandle}
         value={val}
       />
       <View>
-        {
-          history.map(_item => (
-            <AtTag name={_item} onClick={clickHandle} key={_item}>
-              {_item}
-            </AtTag>
-          ))
-        }
+        {history.map(_item => (
+          <AtTag name={_item} onClick={clickHandle} key={_item}> {_item} </AtTag>
+        ))}
       </View>
       <AtSegmentedControl
         values={['Repositories', 'Users']}
         onClick={setCurrent}
         current={current}
       />
-      {
-        backList(current)
-      }
+      { backList(current) }
     </Block>
   )
 }

@@ -1,0 +1,33 @@
+.author {
+  display: flex;
+  justify-items: center;
+  width: 100%;
+}
+
+.login {
+  font-size: 32px;
+  font-weight: 400;
+  color: #40a0fa;
+}
+.avatar {
+  width: 80px;
+  height: 80px;
+  margin-right: 20px;
+  border-radius: 50%;
+}
+.author {
+  display: flex;
+  justify-items: center;
+  align-items: center;
+  width: 100%;
+}
+.user-item {
+  display: flex;
+  align-items: center;
+  margin: 20px;
+  box-shadow: 0 0 10px 0 rgba(0, 0, 0, 0.05);
+  border-radius: 10px;
+  box-sizing: border-box;
+  background: $itemBg;
+  padding-left: 20px;
+}

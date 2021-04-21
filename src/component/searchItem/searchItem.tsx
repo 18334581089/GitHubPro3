@@ -1,6 +1,6 @@
-import Taro, { Component, Config, memo } from '@tarojs/taro'
+import Taro, { Component, Config } from '@tarojs/taro'
 import { View, Text, Image, ITouchEvent } from '@tarojs/components'
-import React from 'react'
+import React, { memo } from 'react'
 
 import './index.scss'
 
@@ -12,6 +12,7 @@ const RepoItem = ({ repo }: RepoItemProps) => {
   if (!repo) {
     return null
   }
+  
   const {
     name,
     owner: { avatar_url, login },
@@ -24,14 +25,10 @@ const RepoItem = ({ repo }: RepoItemProps) => {
   const handleNameClick = (e: ITouchEvent) => {
     e.stopPropagation()
     console.log(`根据${login}跳转页面developer`)
-    // const url = `/pages/developer/index?name=${login}`
-    // Taro.navigateTo({ url })
   }
 
   const handleCardClick = () => {
     console.log(`根据${login}和${name}跳转页面repos详情`)
-    // const url = `/pages/repos/index?owner=${login}&repo=${name}`
-    // Taro.navigateTo({ url })
   }
 
   return (
@@ -63,9 +60,8 @@ const RepoItem = ({ repo }: RepoItemProps) => {
   )
 }
 
-const areEqual = ({ repo: prevRepo }: any, { repo }: any) => {
+const areEqual = (prevRepo: any, repo : any) => {
   return prevRepo && prevRepo.full_name === repo.full_name
 }
 
-// export default memo(RepoItem, areEqual)
-export default RepoItem
+export default memo(RepoItem, areEqual)
