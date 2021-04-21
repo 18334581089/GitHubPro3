@@ -10,8 +10,10 @@ import { events } from "@/util/index";
 import { PULL_DOWN_REFRESH_EVENT, REACH_BOTTOM_EVENT } from "@/util/configData"
 import NewsItem from "@/component/newsItem/newsItem"
 
+import "./news.scss"
+
 interface INesItem {
-  [propNam:string]: any
+  [propName:string]: any
 }
 
 const defaultParam = {
@@ -96,7 +98,7 @@ const News = () => {
   }, [])
   
   return (
-    <Block>
+    <View className='content-wrap'>
       {
         data.length > 0
         ? (
@@ -109,7 +111,7 @@ const News = () => {
         )
         : (<Empty />)
       }
-    </Block>
+    </View>
   )
 }
 export default News

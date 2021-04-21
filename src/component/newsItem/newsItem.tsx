@@ -53,9 +53,11 @@ const ActivityItem = ({ item }: ActivityItemProps) => {
   
   return (
     <View className='item-wrap' onClick={handleCardClick}>
-      <Image className='avatar' src={avatar_url}></Image>
-      <Text className='login' onClick={handleLoginClick}>{login}</Text>
-      { getTimeAgo(created_at) }
+      <View className='author'>
+        <Image className='avatar' src={avatar_url}></Image>
+        <Text className='login' onClick={handleLoginClick}>{login}</Text>
+        { getTimeAgo(created_at) }
+      </View>
       <View className='event-wrap'>
         <View className='event-desc'>{name}</View>
       </View>
