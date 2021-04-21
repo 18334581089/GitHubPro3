@@ -1,28 +1,25 @@
 import React, { useEffect, useRef, useState } from "react";
-import Taro, { usePullDownRefresh, useReachBottom } from "@tarojs/taro";
-import { Block, Button, View, Text, Image } from "@tarojs/components";
-import usePullDownRefreshEvent from "@/hook/usePullDownRefresh"
+import { Block, View } from "@tarojs/components";
+import Taro from "@tarojs/taro";
+
 import Empty from "@/component/empty/empty";
-import { getEvents, IDefaultParams } from "@/services/module/news"
 import LoadMore from "@/component/loadMore/loadMore"
-import useReachBottomEvent from '@/hook/useReachBottomEvent'
-import { events } from "@/util/index";
-import { PULL_DOWN_REFRESH_EVENT, REACH_BOTTOM_EVENT } from "@/util/configData"
 import NewsItem from "@/component/newsItem/newsItem"
+import usePullDownRefreshEvent from "@/hook/usePullDownRefresh"
+import useReachBottomEvent from '@/hook/useReachBottomEvent'
+import { getEvents, IDefaultParams, IUserReceivedEvent } from "@/services/module/news"
+import { PULL_DOWN_REFRESH_EVENT, REACH_BOTTOM_EVENT } from "@/util/configData"
+import { events } from "@/util/index";
 
 import "./news.scss"
 
-interface INesItem {
-  [propName:string]: any
-}
-
-const defaultParam = {
+const defaultParam:IDefaultParams = {
   per_page: 10,
   page: 1
 }
 
 const News = () => {
-  const [data, setData] = useState<INesItem[]>([])
+  const [data, setData] = useState<IUserReceivedEvent[]>([])
   const [params, setParams] = useState<IDefaultParams>(defaultParam)
   const [hasMore, setHasMore] = useState<boolean>(true) // 是否还有更多
 
@@ -78,7 +75,7 @@ const News = () => {
     return () => {
       events.off(REACH_BOTTOM_EVENT)
     }
-  })
+  }, [])
   
   useEffect(() => {
     events.on(PULL_DOWN_REFRESH_EVENT, (page: string) => {
@@ -114,4 +111,5 @@ const News = () => {
     </View>
   )
 }
+
 export default News
