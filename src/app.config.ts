@@ -5,6 +5,7 @@ export default {
     'pages/news/news',
     'pages/language/language',
     'pages/index/index',
+    'pages/repos/repos',
   ],
   window: {
     backgroundTextStyle: 'light',

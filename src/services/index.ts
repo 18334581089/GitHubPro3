@@ -44,11 +44,11 @@ const request = (
     })
 }
 
-export const get = (url, data) => {
+export const get = <T>(url, data = {}):Promise<T> => {
   return request(url, data, 'GET')
 }
 
-export const post = (url, data) => {
+export const post = <T>(url, data = {}):Promise<T> => {
   return request(url, data, 'POST')
 }
 

@@ -35,7 +35,7 @@ const Trending = () => {
     setRefresh(refresh + 1)
   })
 
-  const getRepos = async (param: ITrendingRequestParams) => {
+  const actionGetData = async (param: ITrendingRequestParams) => {
     Taro.showLoading({ title: 'loading...' })
     const res = await apiTrendList(param)
     if (res) {
@@ -64,7 +64,7 @@ const Trending = () => {
       } else if (pagePullDownRef.current !== page) {
         return
       }
-      getRepos(params)
+      actionGetData(params)
     })
     return () => {
       events.off(PULL_DOWN_REFRESH_EVENT)
@@ -72,7 +72,7 @@ const Trending = () => {
   }, [])
 
   useEffect(() => {
-    getRepos(params)
+    actionGetData(params)
   }, [params, refresh])
 
   function handleTabChange(index: number): void {
@@ -111,7 +111,7 @@ const Trending = () => {
                 {
                   _repos.length > 0
                     ? _repos.map(tab2 => <RepoItem key={tab2.url} index={index} data={tab2} />)
-                    : <Empty></Empty>
+                    : <Empty />
                 }
               </AtTabsPane>
             </Block>

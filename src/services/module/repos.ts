@@ -1,34 +1,6 @@
 import { get } from "../index"
 import BASE_URL from "../config"
 
-const url = BASE_URL + '/search/repositories'
-const url2 = BASE_URL + '/search/users'
-
-export const getSearch = (params:ISearchPrams) => {
-  return get< IRepoItem | null>(url, params)
-}
-
-export const getSearchUser = (params:ISearchPrams) => {
-  return get< ISearchUserItem | null>(url2, params)
-}
-
-export interface ISearchPrams {
-  per_page?: number
-  page?: number
-  q: string
-  sort?: string
-  order?: string
-}
-
-
-interface License {
-  key: string
-  name: string
-  spdx_id: string
-  url?: string
-  node_id: string
-}
-
 interface Owner {
   login: string
   id: number
@@ -50,7 +22,20 @@ interface Owner {
   site_admin: boolean
 }
 
-export interface IRepoItem {
+interface Permissions {
+  admin: boolean
+  push: boolean
+  pull: boolean
+}
+
+interface License {
+  key: string
+  name: string
+  spdx_id: string
+  url: string
+  node_id: string
+}
+export interface Repo {
   id: number
   node_id: string
   name: string
@@ -58,7 +43,7 @@ export interface IRepoItem {
   private: boolean
   owner: Owner
   html_url: string
-  description?: string
+  description: string
   fork: boolean
   url: string
   forks_url: string
@@ -104,11 +89,11 @@ export interface IRepoItem {
   ssh_url: string
   clone_url: string
   svn_url: string
-  homepage?: string
+  homepage: string
   size: number
   stargazers_count: number
   watchers_count: number
-  language?: string
+  language: string
   has_issues: boolean
   has_projects: boolean
   has_downloads: boolean
@@ -119,33 +104,20 @@ export interface IRepoItem {
   archived: boolean
   disabled: boolean
   open_issues_count: number
-  license?: License
+  license: License
   forks: number
   open_issues: number
   watchers: number
   default_branch: string
   permissions: Permissions
-  score: number
+  allow_squash_merge: boolean
+  allow_merge_commit: boolean
+  allow_rebase_merge: boolean
+  network_count: number
+  subscribers_count: number
 }
 
-export interface ISearchUserItem {
-  login: string
-  id: number
-  node_id: string
-  avatar_url: string
-  gravatar_id: string
-  url: string
-  html_url: string
-  followers_url: string
-  following_url: string
-  gists_url: string
-  starred_url: string
-  subscriptions_url: string
-  organizations_url: string
-  repos_url: string
-  events_url: string
-  received_events_url: string
-  type: string
-  site_admin: boolean
-  score: number
+export const apiDetailRepos = (full_name: string) => {
+  const url = '/repos/' + full_name
+  return get<Repo | null>(BASE_URL + url)
 }

@@ -64,5 +64,5 @@ export interface IDefaultParams {
 }
 
 export const getEvents = (params:IDefaultParams) => {
-  return get(url, params)
+  return get<IUserReceivedEvent | null>(url, params)
 }

@@ -1,3 +1,4 @@
+import Taro from "@tarojs/taro"
 import React, { memo } from "react"
 import { View, Text, Image } from "@tarojs/components"
 import { ITrendingRepo } from "@/services/module/trend"
@@ -12,34 +13,53 @@ interface Iprop {
 const repoItem = (
   { data, index }: Iprop
 ) => {
+
+  const {
+    name,
+    author,
+    description,
+    avatar,
+    language,
+    stars,
+    forks,
+    currentPeriodStars
+  } = data
+
+  const handleCardClick = () => {
+    const url = `/pages/repos/repos?owner=${author}&repo=${name}`
+    Taro.navigateTo({
+      url
+    })
+  }
+
   return (
-    <View className='card-wrap'>
+    <View className='card-wrap' onClick={handleCardClick}>
       <View className='card-top'>
         <View className='info'>
           <View className='name'>
             <View className='index'>{index}</View>
-            {data.name}
+            {name}
           </View>
-          <View className='description'>{data.description}</View>
+          <View className='description'>{description}</View>
         </View>
         <View className='author'>
-          <Image src={data.avatar} className='avatar'></Image>
-          <View className='author-name'>{data.author}</View>
+          <Image src={avatar} className='avatar'></Image>
+          <View className='author-name'>{author}</View>
         </View>
       </View>
       <View className='card-bottom'>
         <View className='meta-item'>
           <Text className='language-color'></Text>
-          {data.language || 'null'}
+          {language || 'null'}
         </View>
         <View className='meta-item'>
-          {data.stars}
+          {stars}
         </View>
         <View className='meta-item'>
-          {data.forks}
+          {forks}
         </View>
         <View className='meta-item'>
-          {data.currentPeriodStars} stars 今天
+          {currentPeriodStars} stars 今天
       </View>
       </View>
     </View >
