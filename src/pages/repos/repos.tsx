@@ -1,9 +1,14 @@
 import React, { useEffect, useState } from "react"
 import { useRouter } from "@tarojs/taro"
-import { View, Image } from "@tarojs/components"
+import { View, Block, Text } from "@tarojs/components"
+import { AtList } from "taro-ui"
 
 import { apiDetailRepos, Repo } from "@/services/module/repos"
 import Empty from "@/component/empty/empty"
+import Avator from "@/component/avator/avator"
+import { getTimeAgo } from "@/component/newsItem/newsItem_pure"
+
+import "./repos.scss"
 
 const Repos = () => {
   const { params: routeParams } = useRouter()
@@ -19,7 +24,6 @@ const Repos = () => {
   useEffect(actionGetData, [])
 
   const renderInfo = _data => {
-
     const {
       name,
       owner,
@@ -35,19 +39,49 @@ const Repos = () => {
     } = _data
 
     return (
-      <View>
-        <View>name: {name}</View>
-        <Image src={owner.avatar_url}></Image>
-        <View>description: {description}</View>
-        <View>pushed_at: {pushed_at}</View>
-        <View>size: {size}</View>
-        <View>stargazers_count: {stargazers_count}</View>
-        <View>language: {language}</View>
-        <View>forks_count: {forks_count}</View>
-        <View>open_issues_count: {open_issues_count}</View>
-        <View>license: {license.url}</View>
-        <View>subscribers_count: {subscribers_count}</View>
-      </View>
+      <Block>
+        <View className='header'>
+          <Avator url={owner.avatar_url} />
+          <View>
+            <View className='full-name'>
+              <Text className='login'>{owner.login}{'  '}</Text>
+              /
+              <Text className='name'>{name}</Text>
+            </View>
+            <View className='description'>{description || ''}</View>
+            <View className='meta'>{getTimeAgo(pushed_at)}</View>
+          </View>
+        </View>
+
+        <View className='divider'></View>
+        <View className='repo-num'>
+          <View className='num-item'>
+            <View className='num'>
+              {Number(subscribers_count).toLocaleString()}
+            </View>
+            <View className='label'>watchs</View>
+          </View>
+          <View className='num-item'>
+            <View className='num'>
+              {Number(stargazers_count).toLocaleString()}
+            </View>
+            <View className='label'>stars</View>
+          </View>
+          <View className='num-item'>
+            <View className='num'>{Number(forks_count).toLocaleString()}</View>
+            <View className='label'>forks</View>
+          </View>
+        </View>
+
+
+        <View className='repo-info'>
+          <AtList hasBorder={false}></AtList>
+        </View>
+
+        <View className='repo-info'>
+          <AtList hasBorder={false}></AtList>
+        </View>
+      </Block>
     )
   }
 
