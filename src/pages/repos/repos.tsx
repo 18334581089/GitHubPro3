@@ -2,13 +2,21 @@ import React, { useEffect, useState } from "react"
 import { useRouter } from "@tarojs/taro"
 import { View, Block, Text } from "@tarojs/components"
 import { AtList } from "taro-ui"
-
 import { apiDetailRepos, Repo } from "@/services/module/repos"
 import Empty from "@/component/empty/empty"
 import Avator from "@/component/avator/avator"
 import { getTimeAgo } from "@/component/newsItem/newsItem_pure"
-
+import ListItem from "@/component/listItem/listItem"
+import { LANGUAGE_COLOR_MAP } from "./../language/langs"
 import "./repos.scss"
+
+function bytesToSize(bytes: number | string): string {
+  bytes = +bytes
+  const sizes = ["B", "KB", "MB", "GB", "TB"]
+  if (bytes == 0) return "0 B"
+  const i = parseInt("" + Math.floor(Math.log(bytes) / Math.log(1024)))
+  return parseFloat((bytes / Math.pow(1024, i)).toFixed(2)) + " " + sizes[i]
+}
 
 const Repos = () => {
   const { params: routeParams } = useRouter()
@@ -75,7 +83,32 @@ const Repos = () => {
 
 
         <View className='repo-info'>
-          <AtList hasBorder={false}></AtList>
+          <AtList hasBorder={false}>
+            <ListItem
+              title={language}
+              icon='code'
+              color='#002eb0'
+              extraText={`${bytesToSize(size)}`}
+            ></ListItem>
+              <ListItem
+                title='Activity'
+                icon='activity'
+                color='#F44337'
+              ></ListItem>
+              <ListItem
+                title='Issues'
+                icon='info'
+                color='#EC407A'
+                extraText={`${open_issues_count}`}
+              ></ListItem>
+              <ListItem
+                title='License'
+                arrow={null}
+                icon='book'
+                color='#26ca7e'
+                extraText={(license && license.name) || ''}
+              ></ListItem>
+          </AtList>
         </View>
 
         <View className='repo-info'>
