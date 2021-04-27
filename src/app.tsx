@@ -2,6 +2,7 @@ import React, { Component } from 'react'
 import { Provider } from 'react-redux'
 import 'taro-ui/dist/style/index.scss'
 
+import '@/assets/iconfont/icon.css'
 import configStore from "./redux/index"
 import './app.scss'
 

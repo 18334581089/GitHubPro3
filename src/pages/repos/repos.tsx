@@ -119,8 +119,10 @@ const Repos = () => {
   }
 
   return (
-    <View>
-      {data ? renderInfo(data) : <Empty />}
+    <View className='wrap'>
+      <View className='repo'>
+        {data ? renderInfo(data) : <Empty />}
+      </View>
     </View>
   )
 }

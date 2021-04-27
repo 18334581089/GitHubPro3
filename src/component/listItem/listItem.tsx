@@ -25,12 +25,16 @@ const ListItem = (prop: IListItem) => {
   } = prop
 
   const style1 = {
-    fontSize: '16px',
     padding: '1px',
     marginRight: '10px',
     borderRadius: '50%',
     color: '#fff',
-    background: color 
+    background: color,
+    fontSize: '20px',
+    width: '26px',
+    height: '26px',
+    textAlign: 'center',
+    lineHeight: '27px',
   }
 
   return (

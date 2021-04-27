@@ -88,9 +88,6 @@ const config = {
           }
         }
       }
-    },
-    compile: {
-      exclude: ['src/wemark/remarkable.js']
     }
   }
 }
