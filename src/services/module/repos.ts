@@ -121,3 +121,11 @@ export const apiDetailRepos = (full_name: string) => {
   const url = '/repos/' + full_name
   return get<Repo | null>(BASE_URL + url)
 }
+
+export const apiGetMD = (full_name: string) => {
+  return get<string | null>(
+    BASE_URL + `/repos/${full_name}/readme`,
+    {},
+    { Accept: 'application/vnd.github.v3.raw' }
+  )
+}

@@ -14,7 +14,7 @@ const request = (
     url,
     data,
     method,
-    headers
+    header: headers
   }
 
   if (isLoading(option)) {
@@ -44,12 +44,12 @@ const request = (
     })
 }
 
-export const get = <T>(url, data = {}):Promise<T> => {
-  return request(url, data, 'GET')
+export const get = <T>(url, data = {}, headers = {}):Promise<T> => {
+  return request(url, data, 'GET', headers)
 }
 
-export const post = <T>(url, data = {}):Promise<T> => {
-  return request(url, data, 'POST')
+export const post = <T>(url, data = {}, headers = {}):Promise<T> => {
+  return request(url, data, 'POST', headers)
 }
 
 export default request

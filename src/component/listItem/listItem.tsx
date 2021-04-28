@@ -1,6 +1,6 @@
 import { View, Text } from "@tarojs/components"
 import { AtIcon } from "taro-ui"
-import React from "react"
+import React, { CSSProperties } from "react"
 import './listItem.scss'
 
 interface IListItem {
@@ -9,13 +9,13 @@ interface IListItem {
   title: string
   color: string
   rightIcon?: string
-  extraText?: string
+  extraText?: string | number
   arrow?: 'right' | 'left' | 'up' | 'down' | null
 }
 
 const ListItem = (prop: IListItem) => {
   const {
-    onClick = () => { },
+    onClick = () => {},
     icon,
     title,
     color,
@@ -24,7 +24,7 @@ const ListItem = (prop: IListItem) => {
     arrow = 'right'
   } = prop
 
-  const style1 = {
+  const style1:CSSProperties = {
     padding: '1px',
     marginRight: '10px',
     borderRadius: '50%',
@@ -34,7 +34,7 @@ const ListItem = (prop: IListItem) => {
     width: '26px',
     height: '26px',
     textAlign: 'center',
-    lineHeight: '27px',
+    lineHeight: '27px'
   }
 
   return (
