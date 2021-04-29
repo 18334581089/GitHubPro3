@@ -214,3 +214,28 @@ sass: {
 > 解决wemark问题就是在global 文件引入
 > 复制出现问题,因为是请求头没加东西
 > 复制还是没有出现问题,有一个报错目前,明天再看
+
+#### 2021/4/29
+- repos 继续,readme问题
+> 发现在webpack 配置文件中,有一个
+```  
+copy: {
+  patterns: [
+    {
+      from: 'src/wemark',
+      to: 'dist/wemark'
+    }
+  ],
+  options: {
+  }
+}
+```
+```
+compile: {
+  exclude: ['src/wemark/remarkable.js']
+}
+```
+> repos 算是可以告一段落了
+- news优化(activity-item)
+> 加了一个跳转repos
+> 下次继续优化

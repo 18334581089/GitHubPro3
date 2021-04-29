@@ -4,6 +4,8 @@ import React, { useEffect, useState } from "react"
 import { apiGetMD } from "@/services/module/repos"
 import Markdown from "@/component/md/md"
 
+import './readme.scss'
+
 interface IReadmeprop { full_name: string }
 const Readme = ({ full_name }: IReadmeprop) => {
   const [md, setMd] = useState<string | null>(null)

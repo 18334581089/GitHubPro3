@@ -76,6 +76,7 @@ export function parseGitHub(url: string): parseGitHubReturn {
 export function isGitHubPage(url) {
   return url.startsWith(githubHttpUrl) || url.startsWith(githubHttpsUrl)
 }
+
 function mdLink(text, link) {
   return '[' + text + '](' + link + ')'
 }

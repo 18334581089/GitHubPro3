@@ -16,10 +16,10 @@ const imgData = {
 const Empty = () => {
   const random = Math.round(Math.random() * 2)
   return (
-    <View className='wrap'>
-      <View className='inner'>
-        <Image className='img' src={imgData[random]}></Image>
-        <View className='desc'>No Data.</View>
+    <View className='empty_wrap'>
+      <View className='empty_inner'>
+        <Image className='empty_img' src={imgData[random]}></Image>
+        <View className='empty_desc'>No Data.</View>
       </View>
     </View>
   )

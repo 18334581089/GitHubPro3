@@ -22,7 +22,12 @@ const ActivityItem = ({ item }: ActivityItemProps) => {
   } = item
 
   const handleLoginClick = () => console.log(`根据${login}跳转页面developer`)
-  const handleCardClick = () => console.log(`根据${name}跳转页面repos详情`)
+  const handleCardClick = () => {
+    const url = `/page/repos/repos?full_name=${name}}`
+    Taro.navigateTo({
+      url
+    })
+  }
   
   return (
     <View className='item-wrap' onClick={handleCardClick}>

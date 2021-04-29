@@ -9,16 +9,24 @@ import "./repos.scss"
 
 const Repos = () => {
   const { params: routeParams } = useRouter()
-  const _full_name = `${routeParams.owner}/${routeParams.repo}`
   const [data, setData] = useState<Repo | null>(null)
+
+  let _full_name = ''
+  if (routeParams.full_name) {
+    _full_name = routeParams.full_name
+  } else if (routeParams.owner && routeParams.repo) {
+    _full_name = `${routeParams.owner}/${routeParams.repo}`
+  } else {
+    return (<Block></Block>)
+  }
 
   const actionGetData = () => {
     apiDetailRepos(_full_name).then(res => {
       setData(res)
     })
   }
-
-  useEffect(actionGetData, [])
+  
+  actionGetData()
 
   return (
     <View className='wrap'>
