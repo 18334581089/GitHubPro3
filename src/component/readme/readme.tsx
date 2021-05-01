@@ -20,7 +20,6 @@ const Readme = ({ full_name }: IReadmeprop) => {
   
   return (
     <View className='readme'>
-      <View>123</View>  
       <Markdown full_name={full_name} md={md}></Markdown>
     </View>
   )

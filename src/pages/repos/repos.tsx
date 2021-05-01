@@ -8,33 +8,38 @@ import renderInfo from './reposInfo'
 import "./repos.scss"
 
 const Repos = () => {
-  const { params: routeParams } = useRouter()
+  const { params: {full_name, owner, repo} } = useRouter()
   const [data, setData] = useState<Repo | null>(null)
-
-  let _full_name = ''
-  if (routeParams.full_name) {
-    _full_name = routeParams.full_name
-  } else if (routeParams.owner && routeParams.repo) {
-    _full_name = `${routeParams.owner}/${routeParams.repo}`
-  } else {
-    return (<Block></Block>)
-  }
+  const [loading, setLoading] = useState<boolean>(false)
+  let _full_name = full_name ? full_name :`${owner}/${repo}`
 
   const actionGetData = () => {
+    if (loading) {
+      return
+    }
+    if (!_full_name) {
+      return
+    }
+    setLoading(true)
     apiDetailRepos(_full_name).then(res => {
       setData(res)
+      setLoading(false)
     })
   }
-  
-  actionGetData()
+
+  useEffect(actionGetData, [])
 
   return (
-    <View className='wrap'>
-      <View className='repo'>
-        <Block>{ renderInfo(data) }</Block>
-        <Readme full_name={_full_name} />
+    _full_name
+    ? (
+      <View className='wrap'>
+        <View className='repo'>
+          <Block>{ renderInfo(data) }</Block>
+          <Readme full_name={_full_name} />
+        </View>
       </View>
-    </View>
+    )
+    : <Block></Block>
   )
 }
 
