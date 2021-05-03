@@ -1,11 +1,12 @@
-import Taro, { Component, Config } from '@tarojs/taro'
+import Taro from '@tarojs/taro'
 import { View, Text, Image, ITouchEvent } from '@tarojs/components'
 import React, { memo } from 'react'
 
+import { IRepoItem } from "@/services/module/search"
 import './index.scss'
 
 interface RepoItemProps {
-  repo: any
+  repo: IRepoItem
 }
 
 const RepoItem = ({ repo }: RepoItemProps) => {
@@ -28,7 +29,8 @@ const RepoItem = ({ repo }: RepoItemProps) => {
   }
 
   const handleCardClick = () => {
-    console.log(`根据${login}和${name}跳转页面repos详情`)
+    const url = `/pages/repos/repos?owner=${login}&name=${name}`
+    Taro.navigateTo({ url })
   }
 
   return (
@@ -60,8 +62,8 @@ const RepoItem = ({ repo }: RepoItemProps) => {
   )
 }
 
-const areEqual = (prevRepo: any, repo : any) => {
-  return prevRepo && prevRepo.full_name === repo.full_name
+const areEqual = (prevRepo: RepoItemProps, repo : RepoItemProps) => {
+  return prevRepo && prevRepo.repo.full_name === repo.repo.full_name
 }
 
 export default memo(RepoItem, areEqual)

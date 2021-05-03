@@ -103,14 +103,14 @@ const Trending = () => {
       <AtButton type='primary' size='small' onClick={handleLangChange(true)}>切换语言</AtButton>
 
       <AtTabs tabList={tabList} onClick={handleTabChange} current={currTab}>
-        {tabList.map((_tab, index) => {
+        {tabList.map((_tab, _index1) => {
           const _repos = repos[currTab] || []
           return (
-            <Block key={index}>
-              <AtTabsPane current={currTab} index={index}>
+            <Block key={_index1}>
+              <AtTabsPane current={currTab} index={_index1}>
                 {
                   _repos.length > 0
-                    ? _repos.map(tab2 => <RepoItem key={tab2.url} index={index} data={tab2} />)
+                    ? _repos.map((tab2, _index2) => <RepoItem key={tab2.url} index={_index2} data={tab2} />)
                     : <Empty />
                 }
               </AtTabsPane>

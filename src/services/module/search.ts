@@ -5,16 +5,28 @@ const url = BASE_URL + '/search/repositories'
 const url2 = BASE_URL + '/search/users'
 
 export const getSearch = (params:ISearchPrams) => {
-  return get< IRepoItem | null>(url, params)
+  return get<ISearchBack | null>(url, params)
 }
 
 export const getSearchUser = (params:ISearchPrams) => {
-  return get< ISearchUserItem | null>(url2, params)
+  return get<ISearchBack2 | null>(url2, params)
+}
+
+interface ISearchBack {
+  incomplete_results: boolean
+  total_count: number
+  items: IRepoItem[]
+}
+
+interface ISearchBack2 {
+  incomplete_results: boolean
+  total_count: number
+  items: ISearchUserItem[]
 }
 
 export interface ISearchPrams {
-  per_page?: number
-  page?: number
+  per_page: number
+  page: number
   q: string
   sort?: string
   order?: string

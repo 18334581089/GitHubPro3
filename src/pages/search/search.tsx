@@ -1,10 +1,12 @@
+import { AtSearchBar, AtSegmentedControl, AtTag } from "taro-ui";
+import Taro, { usePullDownRefresh, useReachBottom } from "@tarojs/taro"
 import React, { useEffect, useState } from "react";
 import { View, Block } from "@tarojs/components";
-import { AtSearchBar, AtSegmentedControl, AtTag } from "taro-ui";
+
 import { getSearch, getSearchUser, ISearchPrams, IRepoItem, ISearchUserItem } from "@/services/module/search";
+import LoadMore from "@/component/loadMore/loadMore"
 import Empty from "@/component/empty/empty";
 import Author from "@/component/author/author";
-import Taro from "@tarojs/taro"
 
 import RepoItem from "@/component/searchItem/searchItem"
 
@@ -24,10 +26,11 @@ const Search = () => {
 
   const [current, setCurrent] = useState<number>(0)
   const [history, setHistory] = useState<string[]>([])
+  const [hasMore, setHasMore] = useState<boolean>(true)
 
   const actionClickHandle = () => {
     if (!val) { return }
-    historyHandle(params.q)
+    historyHandle()
     setParams({
       ...params,
       q: val,
@@ -35,9 +38,9 @@ const Search = () => {
     })
   }
 
-  const historyHandle = (str: string) => {
-    if (history.includes(str)) { return }
-    const newHistory = [...history, str]
+  const historyHandle = () => {
+    if (!val || history.includes(val)) { return }
+    const newHistory = [...history, val]
     Taro.setStorageSync('search_history', newHistory)
     setHistory(newHistory)
   }
@@ -46,18 +49,46 @@ const Search = () => {
     if (!params.q || !val) { return }
     if (current) {
       getSearchUser(params).then(res => {
-        if (res.items) {
-          setList2([...list2, ...res.items])
+        if (res && res.items) {
+          if (params.page === 1) {
+            setList2(res.items)
+          } else if (params.page > 1) {
+            setList2([...list2, ...res.items])
+          }
+          if (res.items.length < params.per_page) {
+            setHasMore(false)
+          }
         }
       })
     } else {
       getSearch(params).then(res => {
-        if (res.items) {
-          setList1([...list1, ...res.items])
+        if (res && res.items) {
+          if (params.page === 1) {
+            setList1(res.items)
+          } else if (params.page > 1) {
+            setList1([...list1, ...res.items])
+          }
+          if (res.items.length < params.per_page) {
+            setHasMore(false)
+          }
         }
       })
     }
   }
+
+  usePullDownRefresh(() => {
+    setParams({
+      ...params,
+      page: 1
+    })
+  })
+
+  useReachBottom(() => {
+    setParams({
+      ...params,
+      page: params.page + 1
+    })
+  })
 
   useEffect(
     getList,
@@ -75,17 +106,27 @@ const Search = () => {
     setVal(name)
     setParams({
       ...params,
-      q: name
+      q: name,
+      page: 1
     })
   }
 
   const backList = (_current: number) => {
     if (_current === 1 && list2.length > 0) {
       return (
-        list2.map((_item, index) => <Author key={index} item={_item} />)
+        <Block>
+          {list2.map((_item, index) => <Author key={index} item={_item} />)}
+          <LoadMore hasMore={!!hasMore} />
+        </Block>
       )
     } else if (_current === 0 && list1.length > 0) {
-      return list1.map((_item, index) => <RepoItem repo={_item} key={index} />)
+      return (
+        <Block>
+          {list1.map((_item, index) => <RepoItem repo={_item} key={index} />)}
+          <LoadMore hasMore={!!hasMore} />
+        </Block>
+      )
+      
     } else {
       return <Empty />
     }
@@ -99,9 +140,9 @@ const Search = () => {
         value={val}
       />
       <View>
-        {history.map(_item => (
-          <AtTag name={_item} onClick={clickHandle} key={_item}> {_item} </AtTag>
-        ))}
+        {
+          history.map(_item => <AtTag name={_item} onClick={clickHandle} key={_item}> {_item} </AtTag>)
+        }
       </View>
       <AtSegmentedControl
         values={['Repositories', 'Users']}
