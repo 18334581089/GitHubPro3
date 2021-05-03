@@ -3,7 +3,7 @@ import { View, Block, Text } from "@tarojs/components"
 import { AtList } from "taro-ui"
 
 import Avator from "@/component/avator/avator"
-import { getTimeAgo } from "@/component/newsItem/newsItem_pure"
+import { getTimeAgo } from "@/util/newsItem_pure"
 import ListItem from "@/component/listItem/listItem"
 import { Repo } from "@/services/module/repos"
 import Empty from "@/component/empty/empty"

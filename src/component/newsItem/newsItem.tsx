@@ -2,7 +2,7 @@ import { View, Image, Text } from '@tarojs/components'
 import React, { memo } from 'react'
 
 import { IUserReceivedEvent } from "@/services/module/news"
-import { getTimeAgo } from "./newsItem_pure"
+import { getTimeAgo } from "@/util/newsItem_pure"
 import './newsItem.scss'
 
 

@@ -1,5 +1,6 @@
-import React from "react"
 import { View, Image, Text } from "@tarojs/components"
+import Taro from "@tarojs/taro"
+import React from "react"
 
 import { ISearchUserItem } from "@/services/module/search";
 
@@ -10,13 +11,16 @@ interface IUserProp {
 }
 
 const Author = ({item}: IUserProp) => {
-  const handleLoginClick = () => console.log(`根据跳转页面developer`)
+  const handleLoginClick = () => {
+    const url = `/pages/developer/developer?name=${item.login}`
+    Taro.navigateTo({ url })
+  }
   
   return (
     <View className='user-item'>
-      <View className='author'>
+      <View className='author' onClick={handleLoginClick}>
         <Image className='avatar' src={item.avatar_url}></Image>
-        <Text className='login' onClick={handleLoginClick}>
+        <Text className='login'>
           {item.login}
         </Text>
       </View>

@@ -10,6 +10,8 @@ import Author from "@/component/author/author";
 
 import RepoItem from "@/component/searchItem/searchItem"
 
+const searchTag = ['Repositories', 'Users']
+
 const defaultParams: ISearchPrams = {
   q: '',
   sort: '',
@@ -145,8 +147,8 @@ const Search = () => {
         }
       </View>
       <AtSegmentedControl
-        values={['Repositories', 'Users']}
         onClick={setCurrent}
+        values={searchTag}
         current={current}
       />
       { backList(current) }

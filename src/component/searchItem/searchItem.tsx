@@ -29,7 +29,7 @@ const RepoItem = ({ repo }: RepoItemProps) => {
   }
 
   const handleCardClick = () => {
-    const url = `/pages/repos/repos?owner=${login}&name=${name}`
+    const url = `/pages/repos/repos?owner=${login}&repo=${name}`
     Taro.navigateTo({ url })
   }
 
