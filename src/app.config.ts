@@ -1,7 +1,7 @@
 export default {
   pages: [
-    'pages/search/search',
     'pages/trending/trending',
+    'pages/search/search',
     'pages/news/news',
     'pages/language/language',
     'pages/index/index',
