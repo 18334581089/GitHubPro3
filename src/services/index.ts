@@ -27,14 +27,16 @@ const request = (
         return res.data
       } else {
         Taro.showToast({
-          title: '出错了!' + (res.errMsg || "")
+          icon: "none",
+          title: '出错了!' + (res.data.message || "")
         })
         return null
       }
     })
     .catch(err => {
       Taro.showToast({
-        title: '请求出错!' + (err.errMsg || "")
+          icon: "none",
+          title: '请求出错!' + (err.data.message || "")
       })
       return null
     })

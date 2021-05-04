@@ -32,6 +32,13 @@ const repoItem = (
     })
   }
 
+  const handleLoginClick = () => {
+    const url = `/pages/developer/developer?name=${author}`
+    Taro.navigateTo({
+      url
+    })
+  }
+
   return (
     <View className='card-wrap' onClick={handleCardClick}>
       <View className='card-top'>
@@ -42,7 +49,7 @@ const repoItem = (
           </View>
           <View className='description'>{description}</View>
         </View>
-        <View className='author'>
+        <View className='author' onClick={handleLoginClick}>
           <Image src={avatar} className='avatar'></Image>
           <View className='author-name'>{author}</View>
         </View>

@@ -1,7 +1,7 @@
 import React, { useEffect, useState } from "react"
 import { View, Image, Block } from "@tarojs/components"
 import { useRouter } from "@tarojs/taro"
-import { AtButton, AtList } from "taro-ui"
+import { AtList } from "taro-ui"
 
 import { apiGetUser, IUser } from "@/services/module/user"
 import { getTimeAgo } from "@/util/newsItem_pure"
@@ -27,41 +27,24 @@ const Developer = () => {
   const renderUserInfo = () => {
     const {
       login,
-      id,
-      node_id,
       avatar_url,
-      gravatar_id,
-      url,
-      html_url,
-      followers_url,
-      following_url,
-      gists_url,
-      starred_url,
-      subscriptions_url,
-      organizations_url,
-      repos_url,
-      events_url,
-      received_events_url,
-      type,
-      site_admin,
       company = '',
       blog = '',
       location = '',
       email = '',
-      hireable,
       bio = '',
       public_repos,
-      public_gists,
       followers = 0,
       following = 0,
       created_at,
-      updated_at
     } = userInfo!
 
     return (
       <View className='wrap'>
         <View className='header'>
-          <Image className='avatar' src={avatar_url}></Image>
+          <View>
+            <Image className='avatar' src={avatar_url}></Image>
+          </View>
           <View className='basic'>
             <View className='name'>
               {name || login} ({login})
@@ -96,14 +79,12 @@ const Developer = () => {
 
         <View className='info'>
           <ListItem
-            // hasBorder
             icon='activity'
             arrow='right'
             title='Activity'
             color='#3B85F6'
           />
             <ListItem
-              // hasBorder
               icon='star'
               arrow='right'
               title='Starred'
@@ -111,11 +92,9 @@ const Developer = () => {
             />
 
           <ListItem
-            // hasBorder={false}
             arrow='right'
             title='Issues'
             icon='info'
-            // @ts-ignore
             color='#EC407A'
           />
         </View>
@@ -123,7 +102,6 @@ const Developer = () => {
         <View className='info'>
           <ListItem
             arrow={null}
-            // hasBorder
             title='Email'
             icon='email'
             color='#F99501'
@@ -131,7 +109,6 @@ const Developer = () => {
           ></ListItem>
           <ListItem
             arrow={null}
-            // hasBorder
             title='Blog'
             icon='link'
             color='#3F9FFF'
@@ -140,7 +117,6 @@ const Developer = () => {
           <ListItem
             arrow={null}
             icon='people'
-            // hasBorder
             title='Company'
             color='#F44337'
             extraText={company}
@@ -148,7 +124,6 @@ const Developer = () => {
           <ListItem
             icon='location'
             arrow={null}
-            // hasBorder={false}
             title='Location'
             color='#2F63CD'
             extraText={location}
@@ -160,15 +135,11 @@ const Developer = () => {
                   <ListItem
                     icon='star'
                     color='#ff0012'
-                    // @ts-ignore
-                    // hasBorder
-                    // arrow="right"
                     title='Support'
                   />
                 <ListItem
                   icon='fankui'
                   color='#ff9324'
-                  // hasBorder
                   arrow='right'
                   title='Feedback'
                 />

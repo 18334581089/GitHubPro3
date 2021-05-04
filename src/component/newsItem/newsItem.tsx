@@ -1,5 +1,6 @@
 import { View, Image, Text } from '@tarojs/components'
 import React, { memo } from 'react'
+import Taro from '@tarojs/taro'
 
 import { IUserReceivedEvent } from "@/services/module/news"
 import { getTimeAgo } from "@/util/newsItem_pure"
@@ -21,9 +22,15 @@ const ActivityItem = ({ item }: ActivityItemProps) => {
     created_at
   } = item
 
-  const handleLoginClick = () => console.log(`根据${login}跳转页面developer`)
+  const handleLoginClick = () => {
+    const url = `/pages/developer/developer?name=${login}`
+    Taro.navigateTo({
+      url
+    })
+  }
+
   const handleCardClick = () => {
-    const url = `/page/repos/repos?full_name=${name}}`
+    const url = `/pages/repos/repos?full_name=${name}`
     Taro.navigateTo({
       url
     })
@@ -32,12 +39,14 @@ const ActivityItem = ({ item }: ActivityItemProps) => {
   return (
     <View className='item-wrap' onClick={handleCardClick}>
       <View className='author'>
-        <Image className='avatar' src={avatar_url}></Image>
+        <View onClick={handleLoginClick}>
+          <Image className='avatar' src={avatar_url}></Image>
+        </View>
         <Text className='login' onClick={handleLoginClick}>{login}</Text>
         <Text className='create-at'>{ getTimeAgo(created_at) }</Text>
       </View>
       <View className='event-wrap'>
-        <View className='event-desc'>{name}</View>
+        <Text className='repo-name'>{name}</Text>
       </View>
     </View>
   )

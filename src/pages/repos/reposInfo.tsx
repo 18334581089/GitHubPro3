@@ -1,6 +1,7 @@
-import React from "react"
 import { View, Block, Text } from "@tarojs/components"
 import { AtList } from "taro-ui"
+import Taro from "@tarojs/taro"
+import React from "react"
 
 import Avator from "@/component/avator/avator"
 import { getTimeAgo } from "@/util/newsItem_pure"
@@ -83,12 +84,19 @@ const renderInfo = (_data: Repo | null) => {
     },
   ]
 
+  const handleLoginClick = () => {
+    const url = '/pages/developer/developer?name=' + owner.login
+    Taro.navigateTo({ url })
+  }
+
   return (
     <Block>
       <View className='header'>
-        <Avator url={owner.avatar_url} />
+        <View onClick={handleLoginClick}>
+          <Avator url={owner.avatar_url} />
+        </View>
         <View>
-          <View className='full-name'>
+          <View className='full-name' onClick={handleLoginClick}>
             <Text className='login'>{owner.login}{'  '}</Text>
             /
             <Text className='name'>{name}</Text>

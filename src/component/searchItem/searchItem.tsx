@@ -23,9 +23,9 @@ const RepoItem = ({ repo }: RepoItemProps) => {
     forks_count,
   } = repo
 
-  const handleNameClick = (e: ITouchEvent) => {
-    e.stopPropagation()
-    console.log(`根据${login}跳转页面developer`)
+  const handleLoginClick = () => {
+    const url = '/pages/developer/developer?name=' + login
+    Taro.navigateTo({ url })
   }
 
   const handleCardClick = () => {
@@ -35,10 +35,12 @@ const RepoItem = ({ repo }: RepoItemProps) => {
 
   return (
     <View className='repo-wrap' onClick={handleCardClick}>
-      <Image className='avatar' src={avatar_url}></Image>
+      <View onClick={handleLoginClick}>
+        <Image className='avatar' src={avatar_url}></Image>
+      </View>
       <View className='info'>
         <View className='top'>
-          <Text className='name'>{name}</Text>
+          <Text className='name' onClick={handleLoginClick}>{name}</Text>
           <Text className='language'>{language || ''}</Text>
           <Text
             className='lang-color'
@@ -53,7 +55,7 @@ const RepoItem = ({ repo }: RepoItemProps) => {
           <View className='meta-item'>
             {forks_count}
           </View>
-          <View className='meta-item' onClick={handleNameClick}>
+          <View className='meta-item'>
             {login}
           </View>
         </View>

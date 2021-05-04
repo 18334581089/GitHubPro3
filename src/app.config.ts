@@ -1,12 +1,12 @@
 export default {
   pages: [
     'pages/trending/trending',
+    'pages/developer/developer',
     'pages/search/search',
     'pages/news/news',
     'pages/language/language',
     'pages/index/index',
     'pages/repos/repos',
-    'pages/developer/developer',
   ],
   window: {
     backgroundTextStyle: 'light',

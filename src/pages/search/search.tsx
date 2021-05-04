@@ -49,6 +49,9 @@ const Search = () => {
 
   const getList = () => {
     if (!params.q || !val) { return }
+    if (params.page === 1) {
+      setHasMore(true)
+    }
     if (current) {
       getSearchUser(params).then(res => {
         if (res && res.items) {
@@ -143,7 +146,7 @@ const Search = () => {
       />
       <View>
         {
-          history.map(_item => <AtTag name={_item} onClick={clickHandle} key={_item}> {_item} </AtTag>)
+          history.map(_item => <AtTag name={_item} active={!!true} type='primary' circle onClick={clickHandle} key={_item}> {_item} </AtTag>)
         }
       </View>
       <AtSegmentedControl

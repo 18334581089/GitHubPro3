@@ -1,9 +1,9 @@
 import React, { useState, useEffect, useRef } from "react"
 import Taro, { usePullDownRefresh } from "@tarojs/taro"
-import { View, Text, Image, Block } from '@tarojs/components'
+import { Block } from '@tarojs/components'
 import { AtTabs, AtTabsPane, AtButton, AtDrawer } from "taro-ui"
 
-import { apiTrendList, ITabIndex, ITrendingRepo, ITrendingRequestParams } from "@/services/module/trend"
+import { apiTrendList, ITabIndex, ITrendingRequestParams } from "@/services/module/trend"
 import { tabList, PULL_DOWN_REFRESH_EVENT } from "@/util/configData"
 import { events } from "@/util/index"
 import RepoItem from "@/component/repoItem/repoItem"
