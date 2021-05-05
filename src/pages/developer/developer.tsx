@@ -7,6 +7,7 @@ import { apiGetUser, IUser } from "@/services/module/user"
 import { getTimeAgo } from "@/util/newsItem_pure"
 import ListItem from "@/component/listItem/listItem"
 
+import { itemList2, itemList1, itemList3 } from "./devPure"
 import './developer.scss'
 
 const Developer = () => {
@@ -38,6 +39,13 @@ const Developer = () => {
       following = 0,
       created_at,
     } = userInfo!
+
+    const extraTextObj = {
+      Company: company,
+      Blog: blog,
+      Location: location,
+      Email: email,
+    }
 
     return (
       <View className='wrap'>
@@ -78,80 +86,49 @@ const Developer = () => {
         </View>
 
         <View className='info'>
-          <ListItem
-            icon='activity'
-            arrow='right'
-            title='Activity'
-            color='#3B85F6'
-          />
-            <ListItem
-              icon='star'
-              arrow='right'
-              title='Starred'
-              color='#01b09d'
-            />
-
-          <ListItem
-            arrow='right'
-            title='Issues'
-            icon='info'
-            color='#EC407A'
-          />
+          {
+            itemList2.map((_item, index) => (
+              <Block key={index}>
+                <ListItem
+                  title={_item.title}
+                  icon={_item.icon}
+                  color={_item.color}
+                ></ListItem>
+              </Block>
+            ))
+          }
         </View>
 
         <View className='info'>
-          <ListItem
-            arrow={null}
-            title='Email'
-            icon='email'
-            color='#F99501'
-            extraText={email}
-          ></ListItem>
-          <ListItem
-            arrow={null}
-            title='Blog'
-            icon='link'
-            color='#3F9FFF'
-            extraText={blog}
-          ></ListItem>
-          <ListItem
-            arrow={null}
-            icon='people'
-            title='Company'
-            color='#F44337'
-            extraText={company}
-          ></ListItem>
-          <ListItem
-            icon='location'
-            arrow={null}
-            title='Location'
-            color='#2F63CD'
-            extraText={location}
-          ></ListItem>
+          {
+            itemList1.map((_item, index) => (
+              <Block key={index}>
+                <ListItem
+                  title={_item.title}
+                  icon={_item.icon}
+                  color={_item.color}
+                  arrow={null}
+                  extraText={extraTextObj[_item.title]}
+                ></ListItem>
+              </Block>
+            ))
+          }
         </View>
-          <Block>
-            <View className='info'>
-              <AtList hasBorder={false}>
+        <View className='info'>
+          <AtList hasBorder={false}>
+            {
+              itemList3.map((_item, index) => (
+                <Block key={index}>
                   <ListItem
-                    icon='star'
-                    color='#ff0012'
-                    title='Support'
-                  />
-                <ListItem
-                  icon='fankui'
-                  color='#ff9324'
-                  arrow='right'
-                  title='Feedback'
-                />
-                <ListItem
-                  icon='guanyu'
-                  color='#f23d7a'
-                  arrow='right'
-                  title='About'
-                />
-              </AtList>
-            </View>
-          </Block>
+                    title={_item.title}
+                    icon={_item.icon}
+                    color={_item.color}
+                  ></ListItem>
+                </Block>
+              ))
+            }
+          </AtList>
+        </View>
       </View>
     )
   }
