@@ -272,4 +272,5 @@ compile: {
 
 #### 5/5
 - 简单整理developer
-- build出错
+- ***build出错***
+> > 好像是因为赋值language.config文件时,修改文件错了(我之前就有过)
