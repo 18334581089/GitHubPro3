@@ -1,0 +1,20 @@
+.empty_wrap {
+  height: 100vh;
+  width: 100vw;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  background-color: $bg;
+}
+.empty_inner {
+  margin: auto;
+}
+.empty_img {
+  width: 400px;
+  height: 400px;
+}
+.empty_desc {
+  text-align: center;
+  font-size: 35px;
+  color: rgb(88, 88, 88)
+}
