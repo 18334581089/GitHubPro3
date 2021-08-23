@@ -1,8 +1,8 @@
 import { View } from "@tarojs/components"
 import React, { useEffect, useState } from "react"
 
-import { apiGetMD } from "src/services//module/repos"
-import Markdown from "src/component//md/md"
+import { apiGetMD } from "@/services/module/repos"
+import Markdown from "@/component/md/md"
 
 import './readme.scss'
 

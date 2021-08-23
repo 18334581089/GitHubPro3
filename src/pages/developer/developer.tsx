@@ -3,9 +3,9 @@ import { View, Image, Block } from "@tarojs/components"
 import { useRouter } from "@tarojs/taro"
 import { AtList } from "taro-ui"
 
-import { apiGetUser, IUser } from "src/services//module/user"
-import { getTimeAgo } from "src/util//newsItem_pure"
-import ListItem from "src/component//listItem/listItem"
+import { apiGetUser, IUser } from "@/services/module/user"
+import { getTimeAgo } from "@/util/newsItem_pure"
+import ListItem from "@/component/listItem/listItem"
 
 import { itemList2, itemList1, itemList3 } from "./devPure"
 import './developer.scss'

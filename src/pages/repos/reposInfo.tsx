@@ -3,11 +3,11 @@ import { AtList } from "taro-ui"
 import Taro from "@tarojs/taro"
 import React from "react"
 
-import Avator from "src/component//avator/avator"
-import { getTimeAgo } from "src/util//newsItem_pure"
-import ListItem from "src/component//listItem/listItem"
-import { Repo } from "src/services//module/repos"
-import Empty from "src/component//empty/empty"
+import Avator from "@/component/avator/avator"
+import { getTimeAgo } from "@/util/newsItem_pure"
+import ListItem from "@/component/listItem/listItem"
+import { Repo } from "@/services/module/repos"
+import Empty from "@/component/empty/empty"
 
 import { LANGUAGE_COLOR_MAP } from "./../language/langs"
 

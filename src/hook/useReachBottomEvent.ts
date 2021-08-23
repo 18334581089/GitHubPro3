@@ -2,8 +2,8 @@ import {
   useReachBottom,
 } from '@tarojs/taro'
 import { useRef } from "react"
-import { events } from "src/util//index"
-import { REACH_BOTTOM_EVENT } from "src/util//configData"
+import { events } from "@/util/index"
+import { REACH_BOTTOM_EVENT } from "@/util/configData"
 
 const getUniqueId = () => {
   return Math.random()

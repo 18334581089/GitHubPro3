@@ -1,9 +1,9 @@
 import React from "react"
 import { View, Image } from "@tarojs/components"
 
-import img1 from '/src/assets/spidertocat.png'
-import img2 from '/src/assets/stormtroopocat.png'
-import img3 from '/src/assets/logo.png'
+import img1 from '@/assets/spidertocat.png'
+import img2 from '@/assets/stormtroopocat.png'
+import img3 from '@/assets/logo.png'
 
 import "./empty.scss"
 

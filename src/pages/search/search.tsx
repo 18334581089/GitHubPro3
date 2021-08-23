@@ -1,14 +1,14 @@
 import { AtSearchBar, AtSegmentedControl, AtTag } from "taro-ui";
-import Taro, { usePullDownRefresh, useReachBottom, getStorageSync } from "@tarojs/taro"
+import Taro, { usePullDownRefresh, useReachBottom } from "@tarojs/taro"
 import React, { useEffect, useState } from "react";
 import { View, Block } from "@tarojs/components";
 
-import { getSearch, getSearchUser, ISearchPrams, IRepoItem, ISearchUserItem } from "src/services//module/search";
-import LoadMore from "src/component//loadMore/loadMore"
-import Empty from "src/component//empty/empty";
-import Author from "src/component//author/author";
+import { getSearch, getSearchUser, ISearchPrams, IRepoItem, ISearchUserItem } from "@/services/module/search";
+import LoadMore from "@/component/loadMore/loadMore"
+import Empty from "@/component/empty/empty";
+import Author from "@/component/author/author";
 
-import RepoItem from "src/component//searchItem/searchItem"
+import RepoItem from "@/component/searchItem/searchItem"
 
 const searchTag = ['Repositories', 'Users']
 
@@ -101,7 +101,7 @@ const Search = () => {
   )
 
   useEffect(() => {
-    const _history = getStorageSync('search_history')
+    const _history = Taro.getStorageSync('search_history')
     if (_history.length > 0) {
       setHistory(_history)
     }

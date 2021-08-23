@@ -1,6 +1,8 @@
+import path from 'path'
+
 const config = {
-  projectName: 'myTaro',
-  date: '2021-8-21',
+  projectName: 'github_pro',
+  date: '2021-2-21',
   designWidth: 750,
   deviceRatio: {
     640: 2.34 / 2,
@@ -10,10 +12,25 @@ const config = {
   sourceRoot: 'src',
   outputRoot: 'dist',
   plugins: [],
+  sass: {
+    resource: path.resolve(__dirname, '..', 'src/sass/index.scss')
+  },
   defineConstants: {
+  },
+  alias: {
+    '@/component': path.resolve(__dirname, '..', 'src/component'),
+    '@/services': path.resolve(__dirname, '..', 'src/services'),
+    '@/assets': path.resolve(__dirname, '..', 'src/assets'),
+    '@/redux': path.resolve(__dirname, '..', 'src/redux'),
+    '@/hook': path.resolve(__dirname, '..', 'src/hook'),
+    '@/util': path.resolve(__dirname, '..', 'src/util')
   },
   copy: {
     patterns: [
+      {
+        from: 'src/wemark',
+        to: 'dist/wemark'
+      }
     ],
     options: {
     }
@@ -58,11 +75,31 @@ const config = {
           generateScopedName: '[name]__[local]___[hash:base64:5]'
         }
       }
+    },
+    esnextModules: ['taro-ui']
+  },
+  weapp: {
+    module: {
+      postcss: {
+        autoprefixer: {
+          enable: true
+        },
+        // 小程序端样式引用本地资源内联配置
+        url: {
+          enable: true,
+          config: {
+            limit: 10240 // 文件大小限制
+          }
+        }
+      }
+    },
+    compile: {
+      exclude: ['src/wemark/remarkable.js']
     }
   }
 }
 
-module.exports = function (merge) {
+export default function (merge) {
   if (process.env.NODE_ENV === 'development') {
     return merge({}, config, require('./dev'))
   }

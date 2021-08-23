@@ -1,8 +1,8 @@
 import { usePullDownRefresh } from "@tarojs/taro"
 import { useRef } from "react"
 
-import { events } from "src/util//index"
-import { PULL_DOWN_REFRESH_EVENT } from "src/util//configData"
+import { events } from "@/util/index"
+import { PULL_DOWN_REFRESH_EVENT } from "@/util/configData"
 
 const getUniqueId = () => {
   return Math.random()

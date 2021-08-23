@@ -5,7 +5,7 @@
   padding: 20px;
   display: flex;
   align-items: space-between;
-  background: $itemBg;
+  // background: $itemBg;
 }
 
 .divide {
@@ -23,7 +23,7 @@
   width: 100%;
   font-size: 32px;
   font-weight: 600;
-  color: $primary;
+  // color: $primary;
 }
 
 .bio {
@@ -35,7 +35,7 @@
   word-wrap: break-word;
   overflow: hidden;
   text-overflow: ellipsis;
-  color: $text-color;
+  // color: $text-color;
 }
 
 .Joined {
@@ -49,7 +49,7 @@
   padding: 20px;
   border-radius: 10px;
   box-sizing: border-box;
-  background: $itemBg;
+  // background: $itemBg;
 }
 .avatar {
   width: 140px;
@@ -94,5 +94,5 @@
   justify-content: space-around;
   padding: 0 30px 20px;
 
-  background-color: $itemBg;
+  // background-color: $itemBg;
 }

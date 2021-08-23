@@ -2,14 +2,14 @@ import React, { useEffect, useRef, useState } from "react";
 import { Block, View } from "@tarojs/components";
 import Taro from "@tarojs/taro";
 
-import Empty from "src/component//empty/empty";
-import LoadMore from "src/component//loadMore/loadMore"
-import NewsItem from "src/component//newsItem/newsItem"
-import usePullDownRefreshEvent from "src/hook//usePullDownRefresh"
-import useReachBottomEvent from 'src/hook//useReachBottomEvent'
-import { getEvents, IDefaultParams, IUserReceivedEvent } from "src/services//module/news"
-import { PULL_DOWN_REFRESH_EVENT, REACH_BOTTOM_EVENT } from "src/util//configData"
-import { events } from "src/util//index";
+import Empty from "@/component/empty/empty";
+import LoadMore from "@/component/loadMore/loadMore"
+import NewsItem from "@/component/newsItem/newsItem"
+import usePullDownRefreshEvent from "@/hook/usePullDownRefresh"
+import useReachBottomEvent from '@/hook/useReachBottomEvent'
+import { getEvents, IDefaultParams, IUserReceivedEvent } from "@/services/module/news"
+import { PULL_DOWN_REFRESH_EVENT, REACH_BOTTOM_EVENT } from "@/util/configData"
+import { events } from "@/util/index";
 
 import "./news.scss"
 

@@ -5,7 +5,7 @@ import HookExample from './hookExample'
 import './index.scss'
 import request from './request'
 
-import ima1 from '/src/assets/stormtroopocat.png'
+import ima1 from '@/assets/stormtroopocat.png'
 
 import UseHook2 from './useHook2'
 

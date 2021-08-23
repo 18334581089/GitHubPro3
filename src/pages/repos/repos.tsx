@@ -2,8 +2,8 @@ import React, { useEffect, useState } from "react"
 import { useRouter } from "@tarojs/taro"
 import { View, Block } from "@tarojs/components"
 
-import { apiDetailRepos, Repo } from "src/services//module/repos"
-import Readme from "src/component//readme/readme"
+import { apiDetailRepos, Repo } from "@/services/module/repos"
+import Readme from "@/component/readme/readme"
 import renderInfo from './reposInfo'
 import "./repos.scss"
 

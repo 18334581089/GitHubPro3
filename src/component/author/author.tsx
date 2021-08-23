@@ -2,7 +2,7 @@ import { View, Image, Text } from "@tarojs/components"
 import Taro from "@tarojs/taro"
 import React from "react"
 
-import { ISearchUserItem } from "src/services//module/search";
+import { ISearchUserItem } from "@/services/module/search";
 
 import './author.scss'
 

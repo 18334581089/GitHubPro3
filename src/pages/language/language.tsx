@@ -4,8 +4,8 @@ import { useSelector, useDispatch } from "react-redux"
 import { AtCheckbox } from "taro-ui"
 import Taro from "@tarojs/taro"
 
-import { getLanguageData, getLanguageOptions } from "src/util//pureFn"
-import { UPDATE_LANGS } from "src/redux//constatnts"
+import { getLanguageData, getLanguageOptions } from "@/util/pureFn"
+import { UPDATE_LANGS } from "@/redux/constatnts"
 import LANGUAGE_LIST from "./langs"
 
 export default () => {

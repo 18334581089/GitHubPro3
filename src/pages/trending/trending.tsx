@@ -3,11 +3,11 @@ import Taro, { usePullDownRefresh } from "@tarojs/taro"
 import { Block } from '@tarojs/components'
 import { AtTabs, AtTabsPane, AtButton, AtDrawer } from "taro-ui"
 
-import { apiTrendList, ITabIndex, ITrendingRequestParams } from "src/services//module/trend"
-import { tabList, PULL_DOWN_REFRESH_EVENT } from "src/util//configData"
-import { events } from "src/util//index"
-import RepoItem from "src/component//repoItem/repoItem"
-import Empty from "src/component//empty/empty"
+import { apiTrendList, ITabIndex, ITrendingRequestParams } from "@/services/module/trend"
+import { tabList, PULL_DOWN_REFRESH_EVENT } from "@/util/configData"
+import { events } from "@/util/index"
+import RepoItem from "@/component/repoItem/repoItem"
+import Empty from "@/component/empty/empty"
 
 import MyLanguage from "./lang"
 

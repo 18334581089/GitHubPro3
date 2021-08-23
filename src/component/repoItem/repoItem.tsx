@@ -1,7 +1,7 @@
 import Taro from "@tarojs/taro"
 import React, { memo } from "react"
 import { View, Text, Image } from "@tarojs/components"
-import { ITrendingRepo } from "src/services//module/trend"
+import { ITrendingRepo } from "@/services/module/trend"
 
 import "./repoItem.scss"
 

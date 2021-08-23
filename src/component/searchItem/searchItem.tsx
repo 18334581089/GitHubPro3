@@ -2,7 +2,7 @@ import Taro from '@tarojs/taro'
 import { View, Text, Image, ITouchEvent } from '@tarojs/components'
 import React, { memo } from 'react'
 
-import { IRepoItem } from "src/services//module/search"
+import { IRepoItem } from "@/services/module/search"
 import './index.scss'
 
 interface RepoItemProps {

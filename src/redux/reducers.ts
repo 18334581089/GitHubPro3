@@ -1,5 +1,5 @@
 import { combineReducers } from "redux"
-import Taro, { getStorageSync } from "@tarojs/taro"
+import Taro from "@tarojs/taro"
 
 import { UPDATE_LANGS } from "./constatnts"
 
@@ -21,11 +21,9 @@ const defaultData = [
     title: 'TypeScript'
   }
 ]
-console.log(Taro.canIUse)
-console.log(getStorageSync)
-debugger
+
 const initData = {
-  selected: getStorageSync('selected') || defaultData
+  selected: Taro.getStorageSync('selected') || defaultData
 }
 
 interface IAction {

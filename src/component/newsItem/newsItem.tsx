@@ -2,8 +2,8 @@ import { View, Image, Text } from '@tarojs/components'
 import React, { memo } from 'react'
 import Taro from '@tarojs/taro'
 
-import { IUserReceivedEvent } from "src/services//module/news"
-import { getTimeAgo } from "src/util//newsItem_pure"
+import { IUserReceivedEvent } from "@/services/module/news"
+import { getTimeAgo } from "@/util/newsItem_pure"
 import './newsItem.scss'
 
 
