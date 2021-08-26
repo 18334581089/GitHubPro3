@@ -9,6 +9,8 @@ import Empty from "@/component/empty/empty";
 import Author from "@/component/author/author";
 
 import RepoItem from "@/component/searchItem/searchItem"
+import "./search.scss"
+
 
 const searchTag = ['Repositories', 'Users']
 
@@ -144,7 +146,7 @@ const Search = () => {
         onActionClick={actionClickHandle}
         value={val}
       />
-      <View>
+      <View className='history'>
         {
           history.map(_item => <AtTag name={_item} active={!!true} type='primary' circle onClick={clickHandle} key={_item}> {_item} </AtTag>)
         }
